@@ -2,15 +2,75 @@
     ViewData["Title"] = "Resultado del Test SISCO";
 }
 
-<h1>Resultado del Test SISCO</h1>
+@section Styles {
+    <link rel="stylesheet" href="@Url.Content("~/css/estilosPer.css")" />
+}
 
-<p><strong>Media General:</strong> @ViewBag.Media</p>
-<p><strong>Porcentaje:</strong> @ViewBag.Porcentaje%</p>
-<p><strong>Nivel de Estrés:</strong> @ViewBag.Nivel</p>
-<p><strong>Tipo de Estres a tratar:</strong> @ViewBag.Tipo</p>
+<main class="profile-page">
+    <section class="progress-section">
+        <div class="progress-title">
+            <h2>Tu <span class="gradient-text">Nivel de Estrés</span></h2>
+            <p>Gracias por completar el test. Aquí tienes tu resultado:</p>
+        </div>
 
-<hr />
+        <div class="meter-container">
+            <div class="meter-bg" style="--progress: @ViewBag.Porcentaje%">
+                <div class="meter-inner">
+                    <p class="meter-value">@ViewBag.Porcentaje%</p>
+                    <p class="meter-label">nivel de estrés</p>
+                </div>
+            </div>
 
-<p>
-    <a href="@Url.Action("Index", "Home")">Volver al inicio</a>
-</p>
+            <div class="meter-marks">
+                @for (int i = 0; i <= 180; i += 9)
+                {
+                    <div class="mark" style="transform: rotate(@i deg);"></div>
+                }
+            </div>
+        </div>
+
+        <div class="level-info">
+            <h3 class="level-title">Nivel: @ViewBag.Nivel (@ViewBag.Tipo)</h3>
+            <p class="level-description">
+                @GetDescripcionNivel(ViewBag.Nivel)
+            </p>
+            <p class="level-description" style="margin-top: 15px;">
+                <strong>Tipo de Estrés:</strong> @ViewBag.Tipo<br />
+                @GetRecomendacionPorTipo(ViewBag.Tipo)
+            </p>
+        </div>
+    </section>
+</main>
+
+@functions {
+    public static string GetDescripcionNivel(string nivel)
+    {
+        switch (nivel?.ToLower())
+        {
+            case "leve":
+                return "Presentas un nivel bajo de estrés. ¡Sigue así! Mantén tus hábitos saludables para conservar tu bienestar.";
+            case "moderado":
+                return "Tienes un nivel de estrés medianamente alto. Es un buen momento para relajarte y adoptar estrategias que reduzcan el impacto del estrés.";
+            case "severo":
+                return "Tu nivel de estrés es alto. Se recomienda buscar apoyo, reorganizar prioridades y tomar medidas para proteger tu salud mental.";
+            default:
+                return "No se pudo determinar tu nivel de estrés con precisión.";
+        }
+    }
+
+    public static string GetRecomendacionPorTipo(string tipo)
+    {
+        switch (tipo?.ToLower())
+        {
+            case "físico":
+            case "fisico":
+                return "Enfócate en descansar adecuadamente, hacer ejercicio suave y mantener una alimentación saludable.";
+            case "conductual":
+                return "Procura organizar tus actividades, evitar la multitarea excesiva y establecer pausas activas durante el estudio o trabajo.";
+            case "cognitivo":
+                return "Intenta identificar pensamientos negativos, practicar técnicas de relajación y acudir a espacios de apoyo emocional si es necesario.";
+            default:
+                return "Recomendación no disponible.";
+        }
+    }
+}
