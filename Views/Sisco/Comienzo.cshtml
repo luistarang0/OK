@@ -1,0 +1,329 @@
+﻿@{
+    ViewData["Title"] = "Test Sisco";
+}
+
+@section Styles {
+<link rel="stylesheet" href="@Url.Content("~/css/estilosCS.css")" />
+}
+
+
+    <main class="question-container">
+        <div class="question-main-content">
+            <div class="form-card">
+                <div class="form-card-header">
+                    <div class="form-card-header-icon">
+                        <img src="halcon1.png" alt="Salud Mental" class="header-icon">
+                    </div>
+                    <h1 class="gradient-text">Evaluación Inicial de Estrés</h1>
+                    <p class="subtitle">Este cuestionario nos ayudará a entender mejor tu situación</p>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text">0 de 2</div>
+                </div>
+
+                <form id="stressForm">
+                    <!-- Primera pregunta -->
+                    <div class="question-block">
+                        <div class="question-number">01</div>
+                        <div class="question-content">
+                            <h2>Durante el transcurso de este semestre ¿has tenido momentos de preocupación o nerviosismo (estrés)?</h2>
+
+                            <div class="options-container">
+                                <div class="radio-button-container">
+                                    <input type="radio" id="stress-yes" name="has_stress" value="si" class="custom-radio">
+                                    <label for="stress-yes" class="radio-button-label">
+                                        <span class="radio-button-custom"></span>
+                                        <span class="radio-option-text">Sí</span>
+                                    </label>
+                                </div>
+
+                                <div class="radio-button-container">
+                                    <input type="radio" id="stress-no" name="has_stress" value="no" class="custom-radio">
+                                    <label for="stress-no" class="radio-button-label">
+                                        <span class="radio-button-custom"></span>
+                                        <span class="radio-option-text">No</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Segunda pregunta (inicialmente deshabilitada) -->
+                    <div class="question-block" id="stress-level-question" style="opacity: 0.5; pointer-events: none;">
+                        <div class="question-number">02</div>
+                        <div class="question-content">
+                            <h2>Con la idea de obtener mayor precisión y utilizando una escala del 1 al 5 señala tu nivel de estrés, donde (1) es poco y (5) mucho.</h2>
+
+                            <div class="scale-container">
+                                <div class="scale-numbers">
+                                    <div class="scale-option">
+                                        <input type="radio" id="stress-level-1" name="stress_level" value="1" class="scale-radio">
+                                        <label for="stress-level-1" class="scale-label">1</label>
+                                        <span class="scale-desc">Poco estrés</span>
+                                    </div>
+
+                                    <div class="scale-option">
+                                        <input type="radio" id="stress-level-2" name="stress_level" value="2" class="scale-radio">
+                                        <label for="stress-level-2" class="scale-label">2</label>
+                                        <span class="scale-desc">Estrés leve</span>
+                                    </div>
+
+                                    <div class="scale-option">
+                                        <input type="radio" id="stress-level-3" name="stress_level" value="3" class="scale-radio">
+                                        <label for="stress-level-3" class="scale-label">3</label>
+                                        <span class="scale-desc">Estrés moderado</span>
+                                    </div>
+
+                                    <div class="scale-option">
+                                        <input type="radio" id="stress-level-4" name="stress_level" value="4" class="scale-radio">
+                                        <label for="stress-level-4" class="scale-label">4</label>
+                                        <span class="scale-desc">Estrés considerable</span>
+                                    </div>
+
+                                    <div class="scale-option">
+                                        <input type="radio" id="stress-level-5" name="stress_level" value="5" class="scale-radio">
+                                        <label for="stress-level-5" class="scale-label">5</label>
+                                        <span class="scale-desc">Mucho estrés</span>
+                                    </div>
+                                </div>
+
+                                <div class="scale-visualization">
+                                    <div class="scale-bar"></div>
+                                    <div class="scale-markers">
+                                        <div class="scale-marker"></div>
+                                        <div class="scale-marker"></div>
+                                        <div class="scale-marker"></div>
+                                        <div class="scale-marker"></div>
+                                        <div class="scale-marker"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="backBtn">Regresar</button>
+                        <button type="submit" class="primary-btn" id="submitBtn">Continuar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="side-info">
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <div class="icon-circle">
+                            <span>💡</span>
+                        </div>
+                    </div>
+                    <h3>¿Qué es el estrés?</h3>
+                    <p>El estrés es la respuesta física y mental que experimenta nuestro cuerpo ante situaciones de presión, tensión o cambio.</p>
+                    <div class="info-divider"></div>
+                    <p>Identificarlo es el primer paso para manejarlo adecuadamente.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <div class="icon-circle" style="background: linear-gradient(to right, #FFD3B6, #FFAAA5);">
+                            <span>🌿</span>
+                        </div>
+                    </div>
+                    <h3>Consejo del día</h3>
+                    <p>Practicar respiración profunda durante 5 minutos puede reducir significativamente los niveles de estrés en momentos de tensión.</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"Identificar mi nivel de estrés me ayudó a tomar medidas concretas para mejorar mi bienestar."</div>
+                    <div class="testimonial-author">María P., estudiante universitaria</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para confirmación de salida -->
+    <div class="modal-overlay" id="exitModal">
+        <div class="modal-container">
+            <div class="modal-icon">
+                <div class="icon-circle">
+                    <span>❓</span>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h3>¿Deseas regresar a la pantalla principal?</h3>
+                <p>No se guardarán tus respuestas si sales de la evaluación.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel-btn" id="cancelExitBtn">Cancelar</button>
+                <button class="modal-btn confirm-btn" id="confirmExitBtn">Sí, regresar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alerta personalizada -->
+    <div class="alert-overlay" id="customAlert">
+        <div class="alert-container">
+            <div class="alert-icon">
+                <div class="icon-circle">
+                    <span>!</span>
+                </div>
+            </div>
+            <div class="alert-content">
+                <h3 id="alertTitle">Atención</h3>
+                <p id="alertMessage">Mensaje de alerta</p>
+            </div>
+            <div class="alert-actions">
+                <button class="modal-btn confirm-btn" id="alertOkBtn">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+    <script>
+
+
+            // Función para mostrar alertas personalizadas
+            function showCustomAlert(title, message) {
+                const customAlert = document.getElementById('customAlert');
+                const alertTitle = document.getElementById('alertTitle');
+                const alertMessage = document.getElementById('alertMessage');
+                const alertOkBtn = document.getElementById('alertOkBtn');
+
+                alertTitle.textContent = title;
+                alertMessage.textContent = message;
+                customAlert.classList.add('show');
+
+                alertOkBtn.addEventListener('click', function() {
+                    customAlert.classList.remove('show');
+                }, { once: true });
+            }
+
+            // Control de preguntas de estrés
+            const stressYesRadio = document.getElementById('stress-yes');
+            const stressNoRadio = document.getElementById('stress-no');
+            const stressLevelQuestion = document.getElementById('stress-level-question');
+            const exitModal = document.getElementById('exitModal');
+            const cancelExitBtn = document.getElementById('cancelExitBtn');
+            const confirmExitBtn = document.getElementById('confirmExitBtn');
+            const backBtn = document.getElementById('backBtn');
+            const form = document.getElementById('stressForm');
+            const progressFill = document.querySelector('.progress-fill');
+            const progressText = document.querySelector('.progress-text');
+
+            // Función para actualizar la barra de progreso
+            function updateProgressBar(step) {
+                if (step === 1) {
+                    progressFill.style.width = '50%';
+                    progressText.textContent = '1 de 2';
+                } else if (step === 2) {
+                    progressFill.style.width = '100%';
+                    progressText.textContent = '2 de 2';
+                } else {
+                    progressFill.style.width = '0%';
+                    progressText.textContent = '0 de 2';
+                }
+            }
+
+            // Habilitar/deshabilitar segunda pregunta
+            stressYesRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    stressLevelQuestion.style.opacity = '1';
+                    stressLevelQuestion.style.pointerEvents = 'auto';
+
+                    // Animación suave
+                    stressLevelQuestion.style.transition = 'opacity 0.5s ease';
+
+                    // Actualizar barra de progreso a 50%
+                    updateProgressBar(1);
+                }
+            });
+
+            stressNoRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    stressLevelQuestion.style.opacity = '0.5';
+                    stressLevelQuestion.style.pointerEvents = 'none';
+
+                    // Limpiar selecciones de la segunda pregunta
+                    const stressLevelRadios = document.querySelectorAll('input[name="stress_level"]');
+                    stressLevelRadios.forEach(radio => radio.checked = false);
+
+                    // Actualizar barra de progreso a 50%
+                    updateProgressBar(1);
+
+                    // Mostrar modal
+                    exitModal.classList.add('show');
+                }
+            });
+
+            // Controlar modal
+            cancelExitBtn.addEventListener('click', function() {
+                exitModal.classList.remove('show');
+                // Desmarcar la opción "No"
+                stressNoRadio.checked = false;
+
+                // Resetear la barra de progreso si no hay ninguna opción seleccionada
+                if (!stressYesRadio.checked && !stressNoRadio.checked) {
+                    updateProgressBar(0);
+                }
+            });
+
+            confirmExitBtn.addEventListener('click', function() {
+                // Redirigir a la página principal
+                window.location.href = '@Url.Action("Index", "Home")';
+            });
+
+            // Botón de regresar
+            backBtn.addEventListener('click', function() {
+                exitModal.classList.add('show');
+            });
+
+            // Control de escala visual
+            const scaleRadios = document.querySelectorAll('.scale-radio');
+            const scaleMarkers = document.querySelectorAll('.scale-marker');
+
+            scaleRadios.forEach((radio, index) => {
+                radio.addEventListener('change', function() {
+                    // Resetear todos los marcadores
+                    scaleMarkers.forEach(marker => marker.classList.remove('active'));
+
+                    // Activar los marcadores hasta el nivel seleccionado
+                    for (let i = 0; i <= index; i++) {
+                        scaleMarkers[i].classList.add('active');
+                    }
+
+                    // Actualizar barra de progreso a 100% cuando se selecciona un nivel
+                    updateProgressBar(2);
+                });
+            });
+
+            // Envío del formulario
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validar que se haya elegido una opción para la primera pregunta
+                if (!stressYesRadio.checked && !stressNoRadio.checked) {
+                    showCustomAlert('Respuesta requerida', 'Por favor, responde a la primera pregunta');
+                    return;
+                }
+
+                // Si eligió "Sí", también debe elegir nivel de estrés
+                if (stressYesRadio.checked) {
+                    const stressLevelSelected = document.querySelector('input[name="stress_level"]:checked');
+                    if (!stressLevelSelected) {
+                        showCustomAlert('Respuesta requerida', 'Por favor, indica tu nivel de estrés');
+                        return;
+                    }
+                }
+
+                // Aquí iría el código para enviar los datos
+                showCustomAlert('¡Éxito!', 'Formulario enviado correctamente');
+                // Redirigir después de un tiempo
+                setTimeout(function() {
+                window.location.href = '@Url.Action("Instrucciones", "Sisco")';
+                }, 2000);
+            });
+    </script>
+    }

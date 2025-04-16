@@ -1,0 +1,258 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+@section Styles {
+<link rel="stylesheet" href="@Url.Content("~/css/encuesta_estilos.css")" />
+}
+
+
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1><span class="gradient-text">Juega con propósito</span> Fundación OK</h1>
+                <p>Toris es un gran programador</p>
+                <p>Juega con propósito</p>
+                <div class="button-contenedor">
+                    <a asp-controller="Sisco" asp-action="Comienzo" class="explore-btn">
+                        Test<span class="circle"></span>
+                    </a>
+                    <button class="create-btn">Jugar</button>
+                </div>
+            </div>
+            <div class="hero-images">
+                <div class="image-grid">
+                    <div class="grid-item" style="border-top-left-radius: 30%; border-bottom-left-radius: 30%;">
+                        <img src="@Url.Content("~/images/fondo1.jpg")" alt="Imagen 1">
+                    </div>
+                    <div class="grid-item" style="border-bottom-left-radius: 30%; border-bottom-right-radius: 30%;">
+                        <img src="@Url.Content("~/images/fondo2.jpeg")" alt="Imagen 2">
+                    </div>
+                    <div class="grid-item" style="border-top-right-radius: 30%; border-bottom-left-radius: 30%;">
+                        <img src="@Url.Content("~/images/fondo3.jpg")" alt="Imagen 3">
+                    </div>
+                    <div class="grid-item" style="border-top-left-radius: 30%; border-bottom-right-radius: 30%;">
+                        <img src="@Url.Content("~/images/fondo4.jpg")" alt="Imagen 4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="collections">
+        <h2>Actividades Destacadas</h2>
+        <div class="cards">
+            <a asp-controller="Sisco" asp-action="Comienzo" class="card orange-card">
+                <div><h3>Test SISCO</h3></div>
+            </a>
+            <div class="card blue-card">
+                <h3>Respiración</h3>
+            </div>
+        </div>
+    </section>
+
+<button class="feedback-btn" id="feedbackBtn">
+    <span class="feedback-icon">😊</span>
+    <span class="feedback-text">Tu opinión</span>
+</button>
+<!-- Encuesta de Satisfacción Modal -->
+<div class="feedback-overlay" id="feedbackOverlay">
+    <div class="feedback-modal">
+        <div class="feedback-header">
+            <h2><span class="gradient-text">Tu opinión</span> nos importa</h2>
+            <button class="close-btn" id="closeFeedbackBtn">&times;</button>
+        </div>
+        <div class="feedback-content">
+            <form id="feedbackForm">
+                <!-- Pregunta 1 -->
+                <div class="feedback-question">
+                    <h3>¿Cómo calificarías tu experiencia con nuestra plataforma?</h3>
+                    <div class="emoji-options">
+                        <label class="emoji-option">
+                            <input type="radio" name="platform" value="1">
+                            <span class="emoji">😢</span>
+                            <span class="emoji-label">Muy insatisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="platform" value="2">
+                            <span class="emoji">😕</span>
+                            <span class="emoji-label">Insatisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="platform" value="3">
+                            <span class="emoji">😐</span>
+                            <span class="emoji-label">Neutral</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="platform" value="4">
+                            <span class="emoji">🙂</span>
+                            <span class="emoji-label">Satisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="platform" value="5">
+                            <span class="emoji">😄</span>
+                            <span class="emoji-label">Muy satisfecho</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="feedback-question">
+                    <h3>¿Qué te pareció el test que realizaste?</h3>
+                    <div class="emoji-options">
+                        <label class="emoji-option">
+                            <input type="radio" name="test" value="1">
+                            <span class="emoji">😢</span>
+                            <span class="emoji-label">Muy insatisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="test" value="2">
+                            <span class="emoji">😕</span>
+                            <span class="emoji-label">Insatisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="test" value="3">
+                            <span class="emoji">😐</span>
+                            <span class="emoji-label">Neutral</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="test" value="4">
+                            <span class="emoji">🙂</span>
+                            <span class="emoji-label">Satisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="test" value="5">
+                            <span class="emoji">😄</span>
+                            <span class="emoji-label">Muy satisfecho</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="feedback-question">
+                    <h3>¿Cuánto disfrutaste del minijuego?</h3>
+                    <div class="emoji-options">
+                        <label class="emoji-option">
+                            <input type="radio" name="minigame" value="1">
+                            <span class="emoji">😢</span>
+                            <span class="emoji-label">Muy insatisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="minigame" value="2">
+                            <span class="emoji">😕</span>
+                            <span class="emoji-label">Insatisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="minigame" value="3">
+                            <span class="emoji">😐</span>
+                            <span class="emoji-label">Neutral</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="minigame" value="4">
+                            <span class="emoji">🙂</span>
+                            <span class="emoji-label">Satisfecho</span>
+                        </label>
+                        <label class="emoji-option">
+                            <input type="radio" name="minigame" value="5">
+                            <span class="emoji">😄</span>
+                            <span class="emoji-label">Muy satisfecho</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Nueva sección de comentarios -->
+                <div class="feedback-comment-section">
+                    <h3>Comparte tus ideas y sugerencias</h3>
+                    <div class="comment-container">
+                        <div class="comment-textarea-wrapper">
+                            <textarea name="comments" id="feedbackComments" placeholder="Tus comentarios nos ayudan a mejorar..."></textarea>
+                            <div class="textarea-decoration"></div>
+                        </div>
+                        <div class="comment-info">
+                            <div class="comment-emoji-indicator">
+                                <span id="commentEmoji">💭</span>
+                            </div>
+                            <div class="comment-hint">
+                                <p>¿Qué te gustaría ver en el futuro?</p>
+                                <p>¿Cómo podemos mejorar tu experiencia?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-submit">
+                    <button type="submit" class="submit-feedback-btn">Enviar opinión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+                const feedbackBtn = document.getElementById('feedbackBtn');
+        const feedbackOverlay = document.getElementById('feedbackOverlay');
+        const closeFeedbackBtn = document.getElementById('closeFeedbackBtn');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const commentEmoji = document.getElementById('commentEmoji');
+        const feedbackComments = document.getElementById('feedbackComments');
+
+        // Mostrar la encuesta
+        feedbackBtn.addEventListener('click', function() {
+            feedbackOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Cerrar la encuesta
+        closeFeedbackBtn.addEventListener('click', function() {
+            feedbackOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        // Cerrar si se hace clic fuera de la modal
+        feedbackOverlay.addEventListener('click', function(e) {
+            if (e.target === feedbackOverlay) {
+                feedbackOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Cambiar emoji
+        feedbackComments.addEventListener('input', function() {
+            const len = this.value.length;
+            if (len === 0) {
+                commentEmoji.textContent = '💭';
+            } else if (len < 20) {
+                commentEmoji.textContent = '✏️';
+            } else if (len < 50) {
+                commentEmoji.textContent = '📝';
+            } else if (len < 100) {
+                commentEmoji.textContent = '📄';
+            } else {
+                commentEmoji.textContent = '📚';
+            }
+        });
+
+        // Enviar el formulario
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu opinión!');
+            feedbackOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+            feedbackForm.reset();
+        });
+
+        // Selección de emojis
+        const emojiOptions = document.querySelectorAll('.emoji-option');
+        emojiOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const questionGroup = this.closest('.emoji-options');
+                const options = questionGroup.querySelectorAll('.emoji-option');
+                options.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+    </script>
+}

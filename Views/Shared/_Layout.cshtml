@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Fundación OK</title>
+
+    <link rel="stylesheet" href="@Url.Content("~/css/estilos_PI.css")" />
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="@Url.Content("~/images/OK.png")" width="50px" /></div>
+        <nav>
+            <a asp-controller="Home" asp-action="Index">HOME</a>
+            <a href="#">Acerca</a>
+            <a asp-controller="Sisco" asp-action="Comienzo">Test</a>
+            <a href="#">Minijuegos</a>
+            <a href="#">Explorar</a>
+        </nav>
+        <div class="profile-container">
+            <button class="wallet-btn" id="profileBtn">Perfil</button>
+            <div class="dropdown-menu" id="profileMenu">
+                <a asp-controller="Usuarios" asp-action="Perfil">Mi perfil</a>
+                <a asp-controller="Login" asp-action="Login">Cerrar sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>&copy; 2025 OK - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileBtn = document.getElementById('profileBtn');
+            const profileMenu = document.getElementById('profileMenu');
+
+            profileBtn?.addEventListener('click', function (e) {
+                e.stopPropagation();
+                profileMenu?.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function () {
+                profileMenu?.classList.remove('show');
+            });
+
+            profileMenu?.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

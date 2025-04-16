@@ -1,0 +1,172 @@
+﻿@{
+    ViewData["Title"] = "Perfil";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="@Url.Content("~/css/estilosPer.css")" />
+}
+
+
+
+    <section class="hero" style="padding: 40px 20px;">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1><span class="gradient-text">Mi Perfil</span> Fundación OK</h1>
+                <p>Gestiona tu información y revisa tu progreso</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="profile-page">
+        <!-- Sección de información del perfil -->
+        <section class="profile-info">
+            <div class="profile-header">
+                <div class="profile-pic">
+                    <img src="@Url.Content("~/images/halcon1.png")" alt="Imagen de perfil">
+                </div>
+                <div class="profile-name">
+                    <h2>Perfil de Usuario</h2>
+                    <p>Miembro desde <span id="memberSince">-</span></p>
+                </div>
+            </div>
+
+            <div class="profile-details">
+                <div class="detail-item">
+                    <label>Nombre:</label>
+                    <span id="nombre"></span>
+                </div>
+                <div class="detail-item">
+                    <label>Apellido:</label>
+                    <span id="apellido"></span>
+                </div>
+                <div class="detail-item">
+                    <label>Email:</label>
+                    <span id="email"></span>
+                </div>
+                <div class="detail-item">
+                    <label>Fecha de creación:</label>
+                    <span id="fechaCreacion"></span>
+                </div>
+                <div class="detail-item">
+                    <label>Último acceso:</label>
+                    <span id="ultimoAcceso"></span>
+                </div>
+                <div class="detail-item">
+                    <label>Semestre:</label>
+                    <span id="semestre"></span>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button class="edit-btn" id="editProfileBtn">
+                    <span class="btn-icon">✏️</span>
+                    Modificar información
+                </button>
+                <button class="delete-btn" id="deleteAccountBtn">
+                    <span class="btn-icon">🗑️</span>
+                    Borrar cuenta
+                </button>
+            </div>
+        </section>
+
+        <!-- Sección del medidor y nivel -->
+        <section class="progress-section">
+            <div class="progress-title">
+                <h2>Tu <span class="gradient-text">Progreso</span></h2>
+                <p>Sigue avanzando para desbloquear nuevos niveles</p>
+            </div>
+
+            <div class="meter-container">
+                <!-- Fondo del medidor -->
+                <div class="meter-bg" style="--progress: 65%">
+                    <!-- Centro del medidor -->
+                    <div class="meter-inner">
+                        <p class="meter-value">65%</p>
+                        <p class="meter-label">de progreso</p>
+                    </div>
+                </div>
+
+                <!-- Marcadores del medidor -->
+                <div class="meter-marks">
+                    <!-- Generamos 20 marcadores distribuidos en semicírculo -->
+                    <div class="mark" style="transform: rotate(0deg);"></div>
+                    <div class="mark" style="transform: rotate(9deg);"></div>
+                    <div class="mark" style="transform: rotate(18deg);"></div>
+                    <div class="mark" style="transform: rotate(27deg);"></div>
+                    <div class="mark" style="transform: rotate(36deg);"></div>
+                    <div class="mark" style="transform: rotate(45deg);"></div>
+                    <div class="mark" style="transform: rotate(54deg);"></div>
+                    <div class="mark" style="transform: rotate(63deg);"></div>
+                    <div class="mark" style="transform: rotate(72deg);"></div>
+                    <div class="mark" style="transform: rotate(81deg);"></div>
+                    <div class="mark" style="transform: rotate(90deg);"></div>
+                    <div class="mark" style="transform: rotate(99deg);"></div>
+                    <div class="mark" style="transform: rotate(108deg);"></div>
+                    <div class="mark" style="transform: rotate(117deg);"></div>
+                    <div class="mark" style="transform: rotate(126deg);"></div>
+                    <div class="mark" style="transform: rotate(135deg);"></div>
+                    <div class="mark" style="transform: rotate(144deg);"></div>
+                    <div class="mark" style="transform: rotate(153deg);"></div>
+                    <div class="mark" style="transform: rotate(162deg);"></div>
+                    <div class="mark" style="transform: rotate(171deg);"></div>
+                    <div class="mark" style="transform: rotate(180deg);"></div>
+                </div>
+            </div>
+
+            <div class="level-info">
+                <h3 class="level-title">Nivel 3: Medianamente Estresado</h3>
+                <p class="level-description">
+                    Tienes el nivel de estres medianamente alto, debes de empezar a relajarte
+                    y buscar actividades que ayuden a disminuir el estres. Este nivel no es
+                    tan preocupante pero hay que tomar medidas.
+                </p>
+            </div>
+        </section>
+    </main>
+
+@section Scripts {
+
+    <script>
+        // JavaScript para controlar el menú desplegable
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Aquí podríamos añadir código para cargar los datos del perfil desde el servidor
+            // Por ahora solo mostraremos la fecha de miembro desde como ejemplo
+            document.getElementById('memberSince').textContent = "Enero 2025";
+
+            // Función para animar el medidor cuando la página cargue
+            setTimeout(function() {
+                const meterBg = document.querySelector('.meter-bg');
+                meterBg.style.setProperty('--progress', '65%');
+            }, 300);
+
+            // Manejadores para los botones de acción
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+
+            // Evento para el botón de modificar
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', function() {
+                    // Aquí iría la lógica para modificar el perfil
+                    alert('Redirigiendo al formulario de modificación de perfil...');
+                    // window.location.href = '@Url.Action("EditarPerfil", "Usuarios")';
+                });
+            }
+
+            // Evento para el botón de borrar cuenta
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', function() {
+                    // Aquí iría la lógica para confirmar y borrar la cuenta
+                    const confirmar = confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.');
+                    if (confirmar) {
+                        alert('Cuenta eliminada. Redirigiendo a la página principal...');
+                        // Aquí iría el código para eliminar la cuenta
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    }
+                });
+            }
+        });
+    </script>
+   
+    }
+    

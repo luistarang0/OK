@@ -1,0 +1,328 @@
+/* Estilos para la página de instrucciones del test */
+.test-instructions-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.test-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.test-title h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+    -webkit-text-stroke: 0px black
+}
+
+.subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-top: 0;
+}
+
+/* Contenedor de tarjetas */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+/* Estilos de tarjetas */
+.instruction-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.instruction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #A8E6CF, #FFD3B6, #FFAAA5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.icon-circle span {
+    font-size: 28px;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-content h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+.card-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Estilos específicos para cada tarjeta */
+.intro-card {
+    background-color: rgba(168, 230, 207, 0.1);
+}
+
+.time-card {
+    background-color: rgba(255, 211, 182, 0.1);
+}
+
+.levels-card {
+    background-color: rgba(255, 170, 165, 0.1);
+    grid-column: span 2;
+}
+
+.example-card {
+    background-color: rgba(230, 230, 250, 0.1);
+    grid-column: span 2;
+}
+
+.tips-card {
+    background-color: rgba(255, 222, 173, 0.1);
+    grid-column: span 2;
+}
+
+/* Tabla de niveles */
+.levels-table-container {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.levels-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.levels-table th, 
+.levels-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.levels-table th {
+    background: linear-gradient(to right, #A8E6CF, #FFD3B6, #FFAAA5);
+    color: #333;
+    font-weight: bold;
+}
+
+.levels-table tbody tr {
+    background-color: #fff;
+}
+
+.levels-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.levels-table tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.levels-table tbody td:nth-child(2) {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Lista de consejos */
+.tips-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tips-list li {
+    padding: 8px 0 8px 30px;
+    position: relative;
+    color: #555;
+}
+
+.tips-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 20px;
+    height: 20px;
+    color: #A8E6CF;
+    font-weight: bold;
+}
+
+/* Ejemplo visual de respuesta */
+.example-question {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.example-question p {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.scale-visualization {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.scale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.scale-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid #ccc;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+}
+
+.scale-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+}
+
+.scale-item.selected .scale-dot {
+    background-color: #A8E6CF;
+    border-color: #A8E6CF;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(168, 230, 207, 0.5);
+}
+
+.scale-item.selected .scale-label {
+    color: #333;
+}
+
+/* Botón de inicio */
+.start-test-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.ready-text {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.start-test-btn {
+    background: linear-gradient(to right, #A8E6CF, #FFD3B6, #FFAAA5);
+    color: #333;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.start-test-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.start-test-btn:active {
+    transform: translateY(1px);
+}
+
+.btn-icon {
+    margin-left: 10px;
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.start-test-btn:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .levels-card, .example-card, .tips-card {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .scale-visualization {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .scale-item {
+        margin: 0 10px;
+    }
+    
+    .test-title h1 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .instruction-card {
+        padding: 20px 15px;
+    }
+    
+    .start-test-btn {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+    
+    .levels-table th, 
+    .levels-table td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}

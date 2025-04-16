@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="@Url.Content("~/css/estilosL.css")" />
+}
+
+    <section class="auth-container">
+        <div class="auth-content">
+            <div class="auth-left">
+                <h1><span class="gradient-text">Bienvenido</span> de nuevo</h1>
+                <p>Inicia sesión para continuar jugando con propósito</p>
+
+                <form class="auth-form" method="POST" asp-action="Login" asp-controller="Login">
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" name="email" id="email" placeholder="ejemplo@correo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" name="password" id="password" placeholder="Tu contraseña" required>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <div class="button-contenedor">
+                        <button type="submit" class="create-btn">Iniciar Sesión</button>
+                    </div>
+                </form>
+
+                <p class="auth-link">¿No tienes cuenta? <a asp-controller="Login" asp-action="Registro">Regístrate</a></p>
+            </div>
+
+            <div class="auth-right">
+                <div class="grid-item">
+                    <img src="@Url.Content("~/images/halcon1.png")" />
+                </div>
+            </div>
+        </div>
+    </section>
+

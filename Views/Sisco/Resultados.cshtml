@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Resultado del Test SISCO";
+}
+
+<h1>Resultado del Test SISCO</h1>
+
+<p><strong>Media General:</strong> @ViewBag.Media</p>
+<p><strong>Porcentaje:</strong> @ViewBag.Porcentaje%</p>
+<p><strong>Nivel de Estrés:</strong> @ViewBag.Nivel</p>
+<p><strong>Tipo de Estres a tratar:</strong> @ViewBag.Tipo</p>
+
+<hr />
+
+<p>
+    <a href="@Url.Action("Index", "Home")">Volver al inicio</a>
+</p>

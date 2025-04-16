@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = "Instrucciones";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="@Url.Content("~/css/estilosIn.css")" />
+}
+
+    <main class="test-instructions-container">
+        <div class="test-header">
+            <div class="test-title">
+                <h1><span class="gradient-text">Instrucciones del Test</span></h1>
+                <p class="subtitle">Test de Evaluación de Estrés</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <!-- Tarjeta de introducción -->
+            <div class="instruction-card intro-card">
+                <div class="card-icon">
+                    <div class="icon-circle">
+                        <span>📋</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2>Sobre este test</h2>
+                    <p>Este cuestionario está diseñado para evaluar tu nivel de estrés en diferentes situaciones de tu vida diaria. La información obtenida nos ayudará a identificar patrones y ofrecerte recomendaciones personalizadas.</p>
+                    <p>Por favor, lee atentamente cada pregunta y selecciona la respuesta que mejor refleje tu experiencia personal.</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta de tiempo -->
+            <div class="instruction-card time-card">
+                <div class="card-icon">
+                    <div class="icon-circle">
+                        <span>⏱️</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2>Tiempo estimado</h2>
+                    <p>Este test consta de 20 preguntas y toma aproximadamente 10-15 minutos en completarse.</p>
+                    <p>Puedes pausar el test en cualquier momento y continuar más tarde si lo necesitas.</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta de niveles de respuesta -->
+            <div class="instruction-card levels-card">
+                <div class="card-icon">
+                    <div class="icon-circle">
+                        <span>🔍</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2>Escala de respuestas</h2>
+                    <p>Para cada pregunta, selecciona la opción que mejor refleje la frecuencia con la que experimentas cada situación.</p>
+
+                    <div class="levels-table-container">
+                        <table class="levels-table">
+                            <thead>
+                                <tr>
+                                    <th>Nivel</th>
+                                    <th>Abreviatura</th>
+                                    <th>Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nunca</td>
+                                    <td>(N)</td>
+                                    <td>No ocurre en ninguna ocasión</td>
+                                </tr>
+                                <tr>
+                                    <td>Casi nunca</td>
+                                    <td>(CN)</td>
+                                    <td>Ocurre en muy raras ocasiones</td>
+                                </tr>
+                                <tr>
+                                    <td>Rara vez</td>
+                                    <td>(RV)</td>
+                                    <td>Ocurre en pocas ocasiones</td>
+                                </tr>
+                                <tr>
+                                    <td>Algunas veces</td>
+                                    <td>(AV)</td>
+                                    <td>Ocurre en ocasiones moderadas</td>
+                                </tr>
+                                <tr>
+                                    <td>Casi siempre</td>
+                                    <td>(CS)</td>
+                                    <td>Ocurre con mucha frecuencia</td>
+                                </tr>
+                                <tr>
+                                    <td>Siempre</td>
+                                    <td>(S)</td>
+                                    <td>Ocurre en todas las ocasiones</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejemplo visual de niveles -->
+            <div class="instruction-card example-card">
+                <div class="card-icon">
+                    <div class="icon-circle">
+                        <span>💡</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2>Ejemplo de respuesta</h2>
+                    <p>A continuación se muestra un ejemplo de cómo responder a las preguntas:</p>
+
+                    <div class="example-question">
+                        <p>"Me siento nervioso/a al hablar en público"</p>
+                        <div class="scale-visualization">
+                            <div class="scale-item" title="Nunca (N)">
+                                <span class="scale-dot"></span>
+                                <span class="scale-label">N</span>
+                            </div>
+                            <div class="scale-item" title="Casi nunca (CN)">
+                                <span class="scale-dot"></span>
+                                <span class="scale-label">CN</span>
+                            </div>
+                            <div class="scale-item" title="Rara vez (RV)">
+                                <span class="scale-dot"></span>
+                                <span class="scale-label">RV</span>
+                            </div>
+                            <div class="scale-item selected" title="Algunas veces (AV)">
+                                <span class="scale-dot"></span>
+                                <span class="scale-label">AV</span>
+                            </div>
+                            <div class="scale-item" title="Casi siempre (CS)">
+                                <span class="scale-dot"></span>
+                                <span class="scale-label">CS</span>
+                            </div>
+                            <div class="scale-item" title="Siempre (S)">
+                                <span class="scale-dot"></span>
+                                <span class="scale-label">S</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de consejos -->
+            <div class="instruction-card tips-card">
+                <div class="card-icon">
+                    <div class="icon-circle">
+                        <span>✨</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h2>Consejos para completar el test</h2>
+                    <ul class="tips-list">
+                        <li>Responde con honestidad todas las preguntas</li>
+                        <li>Elige la primera respuesta que te venga a la mente</li>
+                        <li>No hay respuestas correctas o incorrectas</li>
+                        <li>Completa el test en un lugar tranquilo y sin interrupciones</li>
+                        <li>Si no estás seguro/a de alguna pregunta, elige la opción que más se acerque a tu experiencia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="start-test-container">
+            <p class="ready-text">¿Listo para comenzar?</p>
+            <button class="start-test-btn" id="startTestBtn">
+                Comenzar Test
+                <span class="btn-icon">→</span>
+            </button>
+        </div>
+    </main>
+
+@section Scripts {
+    <script>
+        // Evento para el botón de comenzar test
+        const startTestBtn = document.getElementById('startTestBtn');
+        if (startTestBtn) {
+            startTestBtn.addEventListener('click', function() {
+                // Redirigir al formulario del test
+                alert('Redirigiendo al formulario del test...');
+                window.location.href = '@Url.Action("Sisco", "Sisco")';
+            });
+        }
+
+    </script>
+    }
+

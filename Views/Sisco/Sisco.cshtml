@@ -1,0 +1,632 @@
+﻿@{
+    ViewData["Title"] = "Test Sisco";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="@Url.Content("~/css/estilosSisco.css")" />
+}
+
+
+    <main class="test-container">
+        <div class="test-header">
+            <h1>Test <span class="gradient-text">de Estrés Académico</span></h1>
+            <p class="test-description">Este test evaluará diferentes aspectos del estrés académico, sus causas, reacciones y estrategias de afrontamiento.</p>
+
+            <div class="progress-container">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Causas</div>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Reacciones</div>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Estrategias</div>
+                </div>
+            </div>
+        </div>
+        <form id="stressTestForm">
+            <!-- Sección 1: Causas del estrés -->
+            <section class="test-section" id="section1">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <div class="icon-circle">
+                            <span>🎯</span>
+                        </div>
+                    </div>
+                    <h2>Causas del estrés</h2>
+                    <p class="section-instruction">¿Con qué frecuencia te estresa?</p>
+                </div>
+
+                <div class="questions-table-container">
+                    <table class="questions-table">
+                        <thead>
+                            <tr>
+                                <th>Situación</th>
+                                <th>Nunca<br><span class="abbr">(N)</span></th>
+                                <th>Casi nunca<br><span class="abbr">(CN)</span></th>
+                                <th>Rara vez<br><span class="abbr">(RV)</span></th>
+                                <th>Algunas veces<br><span class="abbr">(AV)</span></th>
+                                <th>Casi siempre<br><span class="abbr">(CS)</span></th>
+                                <th>Siempre<br><span class="abbr">(S)</span></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        <tr>
+                            <td class="question-text">La sobrecarga de tareas y trabajos escolares que tengo que realizar todos los días</td>
+                            <td><input type="radio" name="q1" value="0" required></td>
+                            <td><input type="radio" name="q1" value="1"></td>
+                            <td><input type="radio" name="q1" value="2"></td>
+                            <td><input type="radio" name="q1" value="3"></td>
+                            <td><input type="radio" name="q1" value="4"></td>
+                            <td><input type="radio" name="q1" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">La personalidad y el carácter de mis profesores que me imparten clases</td>
+                            <td><input type="radio" name="q2" value="0" required></td>
+                            <td><input type="radio" name="q2" value="1"></td>
+                            <td><input type="radio" name="q2" value="2"></td>
+                            <td><input type="radio" name="q2" value="3"></td>
+                            <td><input type="radio" name="q2" value="4"></td>
+                            <td><input type="radio" name="q2" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">La forma de evaluación de mis profesores (a través de ensayos, trabajos de investigación, búsquedas de internet, etc.)</td>
+                            <td><input type="radio" name="q3" value="0" required></td>
+                            <td><input type="radio" name="q3" value="1"></td>
+                            <td><input type="radio" name="q3" value="2"></td>
+                            <td><input type="radio" name="q3" value="3"></td>
+                            <td><input type="radio" name="q3" value="4"></td>
+                            <td><input type="radio" name="q3" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">El nivel de exigencia de mis profesores</td>
+                            <td><input type="radio" name="q4" value="0" required></td>
+                            <td><input type="radio" name="q4" value="1"></td>
+                            <td><input type="radio" name="q4" value="2"></td>
+                            <td><input type="radio" name="q4" value="3"></td>
+                            <td><input type="radio" name="q4" value="4"></td>
+                            <td><input type="radio" name="q4" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">El tipo de trabajo que me piden los profesores (consulta de temas, fichas de trabajo, ensayos, etc.)</td>
+                            <td><input type="radio" name="q5" value="0" required></td>
+                            <td><input type="radio" name="q5" value="1"></td>
+                            <td><input type="radio" name="q5" value="2"></td>
+                            <td><input type="radio" name="q5" value="3"></td>
+                            <td><input type="radio" name="q5" value="4"></td>
+                            <td><input type="radio" name="q5" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Tener tiempo limitado para hacer el trabajo que me encargan los profesores</td>
+                            <td><input type="radio" name="q6" value="0" required></td>
+                            <td><input type="radio" name="q6" value="1"></td>
+                            <td><input type="radio" name="q6" value="2"></td>
+                            <td><input type="radio" name="q6" value="3"></td>
+                            <td><input type="radio" name="q6" value="4"></td>
+                            <td><input type="radio" name="q6" value="5"></td>
+                        </tr>
+                    </tbody>
+
+                    </table>
+                </div>
+
+                <div class="section-navigation">
+                    <button type="button" class="nav-btn secondary-btn" id="prevSection1">Atrás</button>
+                    <button type="button" class="nav-btn primary-btn" id="nextSection1">Siguiente</button>
+                </div>
+            </section>
+
+            <!-- Sección 2: Reacciones al estrés -->
+            <section class="test-section" id="section2" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <div class="icon-circle">
+                            <span>🧠</span>
+                        </div>
+                    </div>
+                    <h2>Reacciones al estrés</h2>
+                    <p class="section-instruction">¿Con qué frecuencia se te presentan las siguientes reacciones cuando estás estresado?</p>
+                </div>
+
+                <div class="questions-table-container">
+                    <table class="questions-table">
+                        <thead>
+                            <tr>
+                                <th>Reacción</th>
+                                <th>Nunca<br><span class="abbr">(N)</span></th>
+                                <th>Casi nunca<br><span class="abbr">(CN)</span></th>
+                                <th>Rara vez<br><span class="abbr">(RV)</span></th>
+                                <th>Algunas veces<br><span class="abbr">(AV)</span></th>
+                                <th>Casi siempre<br><span class="abbr">(CS)</span></th>
+                                <th>Siempre<br><span class="abbr">(S)</span></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        <tr>
+                            <td class="question-text">Fatiga crónica (cansancio permanente)</td>
+                            <td><input type="radio" name="q7" value="0" required></td>
+                            <td><input type="radio" name="q7" value="1"></td>
+                            <td><input type="radio" name="q7" value="2"></td>
+                            <td><input type="radio" name="q7" value="3"></td>
+                            <td><input type="radio" name="q7" value="4"></td>
+                            <td><input type="radio" name="q7" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Sentimientos de depresión y tristeza (decaído)</td>
+                            <td><input type="radio" name="q8" value="0" required></td>
+                            <td><input type="radio" name="q8" value="1"></td>
+                            <td><input type="radio" name="q8" value="2"></td>
+                            <td><input type="radio" name="q8" value="3"></td>
+                            <td><input type="radio" name="q8" value="4"></td>
+                            <td><input type="radio" name="q8" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Ansiedad, angustia o desesperación</td>
+                            <td><input type="radio" name="q9" value="0" required></td>
+                            <td><input type="radio" name="q9" value="1"></td>
+                            <td><input type="radio" name="q9" value="2"></td>
+                            <td><input type="radio" name="q9" value="3"></td>
+                            <td><input type="radio" name="q9" value="4"></td>
+                            <td><input type="radio" name="q9" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Problemas de concentración</td>
+                            <td><input type="radio" name="q10" value="0" required></td>
+                            <td><input type="radio" name="q10" value="1"></td>
+                            <td><input type="radio" name="q10" value="2"></td>
+                            <td><input type="radio" name="q10" value="3"></td>
+                            <td><input type="radio" name="q10" value="4"></td>
+                            <td><input type="radio" name="q10" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Sentimientos de agresividad o aumento de irritabilidad</td>
+                            <td><input type="radio" name="q11" value="0" required></td>
+                            <td><input type="radio" name="q11" value="1"></td>
+                            <td><input type="radio" name="q11" value="2"></td>
+                            <td><input type="radio" name="q11" value="3"></td>
+                            <td><input type="radio" name="q11" value="4"></td>
+                            <td><input type="radio" name="q11" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Conflictos o tendencias a polemizar o discutir</td>
+                            <td><input type="radio" name="q12" value="0" required></td>
+                            <td><input type="radio" name="q12" value="1"></td>
+                            <td><input type="radio" name="q12" value="2"></td>
+                            <td><input type="radio" name="q12" value="3"></td>
+                            <td><input type="radio" name="q12" value="4"></td>
+                            <td><input type="radio" name="q12" value="5"></td>
+                        </tr>
+                    </tbody>
+
+                    </table>
+                </div>
+
+                <div class="section-navigation">
+                    <button type="button" class="nav-btn secondary-btn" id="prevSection2">Atrás</button>
+                    <button type="button" class="nav-btn primary-btn" id="nextSection2">Siguiente</button>
+                </div>
+            </section>
+
+            <!-- Sección 3: Estrategias de afrontamiento -->
+            <section class="test-section" id="section3" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <div class="icon-circle">
+                            <span>💪</span>
+                        </div>
+                    </div>
+                    <h2>Estrategias de afrontamiento</h2>
+                    <p class="section-instruction">¿Con qué frecuencia utilizas las siguientes estrategias para enfrentar el estrés?</p>
+                </div>
+
+                <div class="questions-table-container">
+                    <table class="questions-table">
+                        <thead>
+                            <tr>
+                                <th>Estrategia</th>
+                                <th>Nunca<br><span class="abbr">(N)</span></th>
+                                <th>Casi nunca<br><span class="abbr">(CN)</span></th>
+                                <th>Rara vez<br><span class="abbr">(RV)</span></th>
+                                <th>Algunas veces<br><span class="abbr">(AV)</span></th>
+                                <th>Casi siempre<br><span class="abbr">(CS)</span></th>
+                                <th>Siempre<br><span class="abbr">(S)</span></th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        <tr>
+                            <td class="question-text">Concentrarse en resolver la situación que me preocupa</td>
+                            <td><input type="radio" name="q13" value="0" required></td>
+                            <td><input type="radio" name="q13" value="1"></td>
+                            <td><input type="radio" name="q13" value="2"></td>
+                            <td><input type="radio" name="q13" value="3"></td>
+                            <td><input type="radio" name="q13" value="4"></td>
+                            <td><input type="radio" name="q13" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Establecer soluciones concretas para resolver la situación que me preocupa</td>
+                            <td><input type="radio" name="q14" value="0" required></td>
+                            <td><input type="radio" name="q14" value="1"></td>
+                            <td><input type="radio" name="q14" value="2"></td>
+                            <td><input type="radio" name="q14" value="3"></td>
+                            <td><input type="radio" name="q14" value="4"></td>
+                            <td><input type="radio" name="q14" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Analizar lo positivo y negativo de las soluciones pensadas para solucionar la situación que me preocupa</td>
+                            <td><input type="radio" name="q15" value="0" required></td>
+                            <td><input type="radio" name="q15" value="1"></td>
+                            <td><input type="radio" name="q15" value="2"></td>
+                            <td><input type="radio" name="q15" value="3"></td>
+                            <td><input type="radio" name="q15" value="4"></td>
+                            <td><input type="radio" name="q15" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Mantener el control sobre mis emociones para que no me afecte lo que me estresa</td>
+                            <td><input type="radio" name="q16" value="0" required></td>
+                            <td><input type="radio" name="q16" value="1"></td>
+                            <td><input type="radio" name="q16" value="2"></td>
+                            <td><input type="radio" name="q16" value="3"></td>
+                            <td><input type="radio" name="q16" value="4"></td>
+                            <td><input type="radio" name="q16" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Recordar situaciones similares ocurridas anteriormente y pensar en cómo las solucioné</td>
+                            <td><input type="radio" name="q17" value="0" required></td>
+                            <td><input type="radio" name="q17" value="1"></td>
+                            <td><input type="radio" name="q17" value="2"></td>
+                            <td><input type="radio" name="q17" value="3"></td>
+                            <td><input type="radio" name="q17" value="4"></td>
+                            <td><input type="radio" name="q17" value="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="question-text">Elaboración de un plan para enfrentar lo que me estresa y ejecución de sus tareas</td>
+                            <td><input type="radio" name="q18" value="0" required></td>
+                            <td><input type="radio" name="q18" value="1"></td>
+                            <td><input type="radio" name="q18" value="2"></td>
+                            <td><input type="radio" name="q18" value="3"></td>
+                            <td><input type="radio" name="q18" value="4"></td>
+                            <td><input type="radio" name="q18" value="5"></td>
+                        </tr>
+                    </tbody>
+
+                    </table>
+                </div>
+
+                <div class="section-navigation">
+                    <button type="button" class="nav-btn secondary-btn" id="prevSection3">Atrás</button>
+                    <button type="submit" class="nav-btn submit-btn" id="submitForm">Enviar respuestas</button>
+                </div>
+            </section>
+        </form>
+
+        <!-- Tarjeta lateral de información -->
+        <div class="test-side-info">
+            <div class="info-card tips-card">
+                <h3>Consejos para completar el test</h3>
+                <ul class="tips-list">
+                    <li>Responde con honestidad para obtener resultados precisos</li>
+                    <li>Tómate tu tiempo, no hay límite para completar el test</li>
+                    <li>Si no estás seguro, elige la opción que mejor refleje tu experiencia general</li>
+                    <li>Este test es confidencial y los resultados solo serán utilizados para ayudarte</li>
+                </ul>
+            </div>
+
+            <div class="info-card legend-card">
+                <h3>Leyenda de respuestas</h3>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #e1f5fe;"></span>
+                    <span class="legend-text">Nunca (N)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #b3e5fc;"></span>
+                    <span class="legend-text">Casi nunca (CN)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #81d4fa;"></span>
+                    <span class="legend-text">Rara vez (RV)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #4fc3f7;"></span>
+                    <span class="legend-text">Algunas veces (AV)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #29b6f6;"></span>
+                    <span class="legend-text">Casi siempre (CS)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #03a9f4;"></span>
+                    <span class="legend-text">Siempre (S)</span>
+                </div>
+            </div>
+
+            <div class="completion-status">
+                <div class="status-circle">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="#f0f0f0" stroke-width="12" />
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="url(#gradient)" stroke-width="12" stroke-dasharray="339.3" stroke-dashoffset="339.3" id="progressCircle" />
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#A8E6CF" />
+                                <stop offset="50%" stop-color="#FFD3B6" />
+                                <stop offset="100%" stop-color="#FFAAA5" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="status-text">
+                        <span id="completionPercentage">0%</span>
+                        <span class="status-label">Completado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Alerta personalizada -->
+    <div class="alert-overlay" id="customAlert">
+        <div class="alert-container">
+            <div class="alert-icon">
+                <div class="icon-circle">
+                    <span>!</span>
+                </div>
+            </div>
+            <div class="alert-content">
+                <h3 id="alertTitle">Atención</h3>
+                <p id="alertMessage">Mensaje de alerta</p>
+            </div>
+            <div class="alert-actions">
+                <button class="alert-btn confirm-btn" id="alertOkBtn">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para envío -->
+    <div class="modal-overlay" id="submitConfirmation">
+        <div class="modal-container">
+            <div class="modal-icon">
+                <div class="icon-circle">
+                    <span>✓</span>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h3>¿Estás seguro que deseas enviar tus respuestas?</h3>
+                <p>Una vez enviadas, no podrás modificarlas.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel-btn" id="cancelSubmitBtn">Revisar respuestas</button>
+                <button class="modal-btn confirm-btn" id="confirmSubmitBtn">Sí, enviar</button>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Referencias a elementos
+                const section1 = document.getElementById('section1');
+                const section2 = document.getElementById('section2');
+                const section3 = document.getElementById('section3');
+                const progressSteps = document.querySelectorAll('.progress-step');
+                const nextSection1 = document.getElementById('nextSection1');
+                const prevSection2 = document.getElementById('prevSection2');
+                const nextSection2 = document.getElementById('nextSection2');
+                const prevSection3 = document.getElementById('prevSection3');
+                const submitForm = document.getElementById('submitForm');
+                const stressTestForm = document.getElementById('stressTestForm');
+                const customAlert = document.getElementById('customAlert');
+                const alertTitle = document.getElementById('alertTitle');
+                const alertMessage = document.getElementById('alertMessage');
+                const alertOkBtn = document.getElementById('alertOkBtn');
+                const submitConfirmation = document.getElementById('submitConfirmation');
+                const cancelSubmitBtn = document.getElementById('cancelSubmitBtn');
+                const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+                const progressCircle = document.getElementById('progressCircle');
+                const completionPercentage = document.getElementById('completionPercentage');
+
+                // Función para mostrar alerta personalizada
+                function showAlert(title, message) {
+                    alertTitle.textContent = title;
+                    alertMessage.textContent = message;
+                    customAlert.classList.add('show');
+                }
+
+                alertOkBtn.addEventListener('click', function() {
+                    customAlert.classList.remove('show');
+                });
+
+                // Función para validar sección
+                function validateSection(sectionNumber) {
+                    const currentSection = document.getElementById('section' + sectionNumber);
+                    const inputs = currentSection.querySelectorAll('input[type="radio"]:required');
+                    const inputNames = new Set();
+
+                    inputs.forEach(input => {
+                        inputNames.add(input.name);
+                    });
+
+                    let allAnswered = true;
+
+                    inputNames.forEach(name => {
+                        const checked = currentSection.querySelector('input[name="' + name + '"]:checked');
+                        if (!checked) {
+                            allAnswered = false;
+                        }
+                    });
+
+                    return allAnswered;
+                }
+
+                // Navegación entre secciones
+                nextSection1.addEventListener('click', function() {
+                    if (validateSection(1)) {
+                        section1.style.display = 'none';
+                        section2.style.display = 'block';
+                        progressSteps[0].classList.remove('active');
+                        progressSteps[1].classList.add('active');
+                        updateProgress();
+                        window.scrollTo(0, 0);
+                    } else {
+                        showAlert('Respuestas incompletas', 'Por favor, responde todas las preguntas antes de continuar.');
+                    }
+                });
+
+                prevSection2.addEventListener('click', function() {
+                    section2.style.display = 'none';
+                    section1.style.display = 'block';
+                    progressSteps[1].classList.remove('active');
+                    progressSteps[0].classList.add('active');
+                    updateProgress();
+                    window.scrollTo(0, 0);
+                });
+
+                nextSection2.addEventListener('click', function() {
+                    if (validateSection(2)) {
+                        section2.style.display = 'none';
+                        section3.style.display = 'block';
+                        progressSteps[1].classList.remove('active');
+                        progressSteps[2].classList.add('active');
+                        updateProgress();
+                        window.scrollTo(0, 0);
+                    } else {
+                        showAlert('Respuestas incompletas', 'Por favor, responde todas las preguntas antes de continuar.');
+                    }
+                });
+
+                prevSection3.addEventListener('click', function() {
+                    section3.style.display = 'none';
+                    section2.style.display = 'block';
+                    progressSteps[2].classList.remove('active');
+                    progressSteps[1].classList.add('active');
+                    updateProgress();
+                    window.scrollTo(0, 0);
+                });
+
+                // Envío del formulario
+                submitForm.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    if (validateSection(3)) {
+                        submitConfirmation.classList.add('show');
+                    } else {
+                        showAlert('Respuestas incompletas', 'Por favor, responde todas las preguntas antes de enviar.');
+                    }
+                });
+
+                // Confirmación de envío
+                cancelSubmitBtn.addEventListener('click', function() {
+                    submitConfirmation.classList.remove('show');
+                });
+
+                confirmSubmitBtn.addEventListener('click', function() {
+                    submitConfirmation.classList.remove('show');
+                        const estresores = [], sintomas = [], afrontamiento = [];
+
+                        for (let i = 1; i <= 18; i++) {
+                            const seleccionada = document.querySelector(`input[name="q${i}"]:checked`);
+                            const valor = parseInt(seleccionada.value);
+                            if (i <= 6) estresores.push(valor);
+                            else if (i <= 12) sintomas.push(valor);
+                            else afrontamiento.push(valor);
+                        }
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = '/Sisco/Resultados';
+                            // Añadir inputs ocultos para cada valor
+                        estresores.forEach((val, index) => {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = `Estresores[${index}]`;
+                            input.value = val;
+                            form.appendChild(input);
+                        });
+
+                        sintomas.forEach((val, index) => {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = `Sintomas[${index}]`;
+                            input.value = val;
+                            form.appendChild(input);
+                        });
+
+                        afrontamiento.forEach((val, index) => {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = `Afrontamiento[${index}]`;
+                            input.value = val;
+                            form.appendChild(input);
+                        });
+
+                    // Añadir el formulario al body y enviarlo
+                    document.body.appendChild(form);
+                    form.submit();
+                    showAlert('Formulario enviado', 'Tus respuestas han sido registradas correctamente. ¡Gracias por completar el test!');
+                    // Redirección después de mostrar la alerta
+                    setTimeout(function() {
+                        window.location.href = '@Url.Action("Sisco", "Resultados")';
+                    }, 3000);
+                });
+
+                // Actualizar progreso al responder preguntas
+                const allInputs = document.querySelectorAll('input[type="radio"]');
+                const totalQuestions = document.querySelectorAll('.question-text').length;
+
+                function updateProgress() {
+                    const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+                    const percentage = Math.round((answeredQuestions / totalQuestions) * 100);
+
+                    // Actualizar círculo de progreso (circunferencia = 2πr = 2 * 3.14159 * 54 ≈ 339.3)
+                    const circumference = 339.3;
+                    const offset = circumference - (percentage / 100) * circumference;
+                    progressCircle.style.strokeDashoffset = offset;
+
+                    // Actualizar texto de porcentaje
+                    completionPercentage.textContent = percentage + '%';
+
+                    // Efecto de transición
+                    progressCircle.style.transition = 'stroke-dashoffset 0.5s ease-in-out';
+                }
+
+                // Actualizar progreso cuando se selecciona una opción
+                allInputs.forEach(input => {
+                    input.addEventListener('change', updateProgress);
+                });
+
+                // Inicializar progreso
+                updateProgress();
+
+                // Añadir efectos visuales a las tablas
+                const tableRows = document.querySelectorAll('.questions-table tbody tr');
+                tableRows.forEach(row => {
+                    row.addEventListener('mouseenter', function() {
+                        this.classList.add('highlight-row');
+                    });
+
+                    row.addEventListener('mouseleave', function() {
+                        this.classList.remove('highlight-row');
+                    });
+                });
+
+                // Mejorar experiencia de selección de respuestas
+                const radioCells = document.querySelectorAll('.questions-table td:not(.question-text)');
+                radioCells.forEach(cell => {
+                    cell.addEventListener('click', function() {
+                        // Obtener el input dentro de esta celda
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio) {
+                            radio.checked = true;
+
+                            // Disparar el evento change para actualizar el progreso
+                            const event = new Event('change');
+                            radio.dispatchEvent(event);
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+
+    
