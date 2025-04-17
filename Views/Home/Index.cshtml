@@ -237,10 +237,39 @@
         // Enviar el formulario
         feedbackForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('¡Gracias por tu opinión!');
-            feedbackOverlay.classList.remove('show');
-            document.body.style.overflow = '';
-            feedbackForm.reset();
+            const platform = parseInt(document.querySelector('input[name="platform"]:checked')?.value || 0);
+            const test = parseInt(document.querySelector('input[name="test"]:checked')?.value || 0);
+            const minigame = parseInt(document.querySelector('input[name="minigame"]:checked')?.value || 0);
+            const comments = document.getElementById('feedbackComments').value.trim();
+
+            const data = {
+                platform,
+                test,
+                minigame,
+                comments
+            };
+
+            fetch('/Home/CalcularSatisfaccion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(result => {
+                const mensaje = `¡Gracias por tu opinión!\n\nTu nivel de satisfacción es: ${result.porcentaje}%\nInterpretación: ${result.interpretacion}`;
+                alert(mensaje);
+
+                feedbackOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+                feedbackForm.reset();
+                commentEmoji.textContent = '💭';
+            })
+            .catch(err => {
+                console.error("Error al enviar la encuesta:", err);
+                alert("Ocurrió un error al enviar tu opinión. Inténtalo de nuevo.");
+            });
         });
 
         // Selección de emojis
