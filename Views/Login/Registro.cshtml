@@ -14,12 +14,37 @@
 
                 <form class="auth-form" method="POST" asp-action="Registro" asp-controller="Login">
                     <div class="form-group">
-                        <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="Nombre" placeholder="Ingresa tu nombre" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="apPat">Apellido Paterno</label>
+                        <input type="text" id="apPat" name="ApPat" placeholder="Ej. Pérez" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apMat">Apellido Materno</label>
+                        <input type="text" id="apMat" name="ApMat" placeholder="Ej. Ramírez" required>
+                    </div>
+
                     <div class="form-group">
                         <label for="email">Correo electrónico</label>
-                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                        <input type="email" id="email" name="Email" placeholder="ejemplo@correo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edad">Edad</label>
+                        <input type="number" id="edad" name="Edad" min="15" max="99" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sexo">Sexo</label>
+                        <select id="sexo" name="Sexo" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
@@ -45,4 +70,48 @@
             </div>
         </div>
     </section>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.auth-form');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirm-password');
+            const submitBtn = document.querySelector('button[type="submit"]');
+
+            // Validación de la contraseña
+            form.addEventListener('submit', function (e) {
+                let isValid = true;
+
+                // Verificación de los campos de contraseñas
+                if (password.value !== confirmPassword.value) {
+                    alert("Las contraseñas no coinciden.");
+                    isValid = false;
+                }
+
+                // Si la validación falla, evita el envío del formulario
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+
+            // Revisa si el formulario está correctamente completado antes de enviar
+            form.addEventListener('input', function () {
+                let isValid = true;
+
+                // Validar campos requeridos
+                const requiredFields = form.querySelectorAll('input[required], select[required]');
+                requiredFields.forEach(function (input) {
+                    if (!input.value) {
+                        isValid = false;
+                    }
+                });
+
+                // Deshabilitar el botón de enviar si el formulario no está completo
+                submitBtn.disabled = !isValid;
+            });
+        });
+    </script>
+}
 

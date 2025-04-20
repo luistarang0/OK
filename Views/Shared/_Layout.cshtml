@@ -19,12 +19,24 @@
             <a href="#">Minijuegos</a>
             <a href="#">Explorar</a>
         </nav>
+
         <div class="profile-container">
-            <button class="wallet-btn" id="profileBtn">Perfil</button>
-            <div class="dropdown-menu" id="profileMenu">
-                <a asp-controller="Usuarios" asp-action="Perfil">Mi perfil</a>
-                <a asp-controller="Login" asp-action="Login">Cerrar sesión</a>
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button class="wallet-btn" id="profileBtn">Perfil</button>
+                <div class="dropdown-menu" id="profileMenu">
+                    <a asp-controller="Usuarios" asp-action="Perfil">Mi perfil</a>
+                    <a asp-controller="Login" asp-action="Login">Cerrar sesión</a>
+                </div>
+            } else
+            {
+                <nav>
+                    <a asp-controller="Login" asp-action="Login">Iniciar Sesión</a>
+                    <a asp-controller="Login" asp-action="Registro">Registrarse</a>
+                </nav>
+                
+            }
+            
         </div>
     </header>
 

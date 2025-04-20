@@ -194,6 +194,35 @@ h1 {
     color: #ccc;
 }
 
+    .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 5px;
+        border: 1px solid #ccc; /* Gris claro para el borde */
+        background-color: #fff;
+        color: #333;
+        appearance: none; /* Elimina la flecha del navegador */
+        background: linear-gradient(to right, #A8E6CF, #FFD3B6, #FFAAA5); /* Fondo degradado */
+        color: #000;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #FF8A9B; /* Rosa pastel */
+            box-shadow: 0 0 10px rgba(255, 138, 155, 0.5);
+        }
+
+select option {
+    background-color: #FFF;
+    color: #333;
+    padding: 10px;
+    font-size: 16px;
+}
+
 .form-group input {
     width: 100%;
     padding: 12px 15px;
