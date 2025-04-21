@@ -312,6 +312,19 @@ h1 {
     display: block;
 }
 
+.error-message {
+    background-color: #f8d7da; /* Color de fondo rojo claro */
+    color: #721c24; /* Color de texto rojo oscuro */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb; /* Borde con un tono más claro */
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+
 /* Footer */
 footer {
     text-align: center;

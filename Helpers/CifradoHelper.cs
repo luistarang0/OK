@@ -12,5 +12,14 @@ namespace OK.Helpers
             var hash = sha256.ComputeHash(bytes);
             return Convert.ToBase64String(hash);
         }
+
+        public static bool VerifyPassword(string enteredPassword, string storedHash)
+        {
+            // Hasheamos la contraseña ingresada
+            var enteredPasswordHash = Hash(enteredPassword);
+
+            // Comparamos el hash ingresado con el almacenado
+            return enteredPasswordHash == storedHash;
+        }
     }
 }

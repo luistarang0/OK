@@ -2,6 +2,9 @@
 using OK.Data;
 using OK.Models;
 using OK.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace OK.Controllers
 {
@@ -25,6 +28,47 @@ namespace OK.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            // Buscar el usuario en la base de datos por correo electrónico
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
+
+            if (usuario == null)
+            {
+                // Si no se encuentra el usuario, mostrar un mensaje de error
+                ViewBag.ErrorMessage = "El correo electrónico no está registrado.";
+                return View();
+            }
+
+            // Verificar si la contraseña es correcta
+            if (!CifradoHelper.VerifyPassword(password, usuario.Password))
+            {
+                // Si la contraseña no es válida, mostrar un mensaje de error
+                ViewBag.ErrorMessage = "La contraseña es incorrecta.";
+                return View();
+            }
+
+            // Crear los claims para el usuario autenticado
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()), // ID del usuario
+                    new Claim(ClaimTypes.Name, usuario.Nombre), // Nombre del usuario
+                    new Claim(ClaimTypes.Email, usuario.Email) // Correo electrónico
+                };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            // Iniciar sesión (guardar la información del usuario en las cookies)
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            // Iniciar sesión (guardar el id del usuario en la sesión)
+            HttpContext.Session.SetString("UserId", usuario.Id.ToString());
+
+            // Redirigir al perfil del usuario o a la página principal
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
         public IActionResult Registro(Usuario usuario)
         {
             // Verificar que el correo electrónico no esté en uso
@@ -35,9 +79,13 @@ namespace OK.Controllers
                 return View();
             }
 
+            int lastUserId = _context.Usuarios.Max(u => (int?)u.Id) ?? 0;  // Si no hay registros, se asigna 0
+            usuario.Id = lastUserId + 1;  // Asignar el siguiente id disponible
+
             // Crear y guardar el nuevo usuario
             var nuevoUsuario = new Usuario
             {
+                Id = usuario.Id,
                 Nombre = usuario.Nombre,
                 ApPat = usuario.ApPat,
                 ApMat = usuario.ApMat,
@@ -58,6 +106,12 @@ namespace OK.Controllers
             // Redirigir al perfil del usuario o a la página principal
             return RedirectToAction("Perfil", "Usuarios");
 
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
 
     }

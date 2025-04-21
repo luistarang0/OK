@@ -31,6 +31,14 @@
                     </div>
                 </form>
 
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="error-message">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+
+
                 <p class="auth-link">¿No tienes cuenta? <a asp-controller="Login" asp-action="Registro">Regístrate</a></p>
             </div>
 

@@ -30,10 +30,10 @@ namespace OK.Models
         [MaxLength(80)]
         public string? Carrera { get; set; }
 
-        public int? Semestre { get; set; }
+        public byte? Semestre { get; set; }
 
         [Required]
-        public int Edad { get; set; }
+        public byte Edad { get; set; }
 
         [Required]
         [RegularExpression("[MF]")]
