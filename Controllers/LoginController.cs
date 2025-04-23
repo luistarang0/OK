@@ -65,7 +65,7 @@ namespace OK.Controllers
             HttpContext.Session.SetString("UserId", usuario.Id.ToString());
 
             // Redirigir al perfil del usuario o a la página principal
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GuardarSesion", "Sisco");
         }
 
         [HttpPost]
@@ -103,8 +103,8 @@ namespace OK.Controllers
             // Aquí puedes configurar la sesión del usuario si es necesario.
             HttpContext.Session.SetString("UserId", nuevoUsuario.Id.ToString());
 
-            // Redirigir al perfil del usuario o a la página principal
-            return RedirectToAction("Perfil", "Usuarios");
+            // Redirigir
+            return RedirectToAction("GuardarSesion", "Sisco");
 
         }
 

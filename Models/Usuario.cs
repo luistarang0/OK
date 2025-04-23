@@ -46,5 +46,7 @@ namespace OK.Models
         [Required]
         [MaxLength(100)]
         public string Password { get; set; }
+
+        public ICollection<SesionEvaluaciones>? Sesiones { get; set; }
     }
 }
