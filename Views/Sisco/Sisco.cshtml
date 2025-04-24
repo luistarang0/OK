@@ -453,6 +453,7 @@
                 const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
                 const progressCircle = document.getElementById('progressCircle');
                 const completionPercentage = document.getElementById('completionPercentage');
+                const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
 
                 // Función para mostrar alerta personalizada
                 function showAlert(title, message) {
@@ -559,9 +560,10 @@
                             else if (i <= 14) sintomas.push(valor);
                             else afrontamiento.push(valor);
                         }
+                        
                         const form = document.createElement('form');
                         form.method = 'POST';
-                        form.action = '/Sisco/Resultados';
+                        form.action = '/Sisco/Flujo';
                             // Añadir inputs ocultos para cada valor
                         estresores.forEach((val, index) => {
                             const input = document.createElement('input');
@@ -590,10 +592,15 @@
                     // Añadir el formulario al body y enviarlo
                     document.body.appendChild(form);
                     form.submit();
-                    showAlert('Formulario enviado', 'Tus respuestas han sido registradas correctamente. ¡Gracias por completar el test!');
+                    
+                    if (!isAuthenticated) {
+                        alert("Debes iniciar sesión para guardar tus resultados.");                        
+                    } else {
+                        showAlert('Formulario enviado', 'Tus respuestas han sido registradas correctamente. ¡Gracias por completar el test!');
+                    }
                     // Redirección después de mostrar la alerta
                     setTimeout(function() {
-                        window.location.href = '@Url.Action("Sisco", "Resultados")';
+                        window.location.href = '@Url.Action("Sisco", "Flujo")';
                     }, 3000);
                 });
 

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OK.Models
 {
+    [Table("Preguntas_encuesta")]
     public class PreguntaEncuesta
     {
         [Key]
@@ -19,7 +20,7 @@ namespace OK.Models
         public string? TipoPregunta { get; set; }
 
         [Column("orden")]
-        public int Orden { get; set; }
+        public short Orden { get; set; }
 
         public ICollection<RespuestaEncuesta>? Respuestas { get; set; }
     }

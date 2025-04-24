@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OK.Models
 {
+    [Table ("Dimensiones_test")]
     public class DimensionTest
     {
         [Key]
@@ -23,7 +24,7 @@ namespace OK.Models
         [Column("instrucciones")]
         public string Instrucciones { get; set; } = string.Empty;
         [Column("orden")]
-        public int Orden { get; set; }
+        public byte Orden { get; set; }
 
         public ICollection<PreguntaTest>? Preguntas { get; set; }
     }

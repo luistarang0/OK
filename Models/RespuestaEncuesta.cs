@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OK.Models
 {
+    [Table("Respuesta_encuesta")]
     public class RespuestaEncuesta
     {
         [Key]
@@ -20,7 +21,7 @@ namespace OK.Models
         [ForeignKey("IdPreguntaEncuesta")]
         public PreguntaEncuesta? PreguntaEncuesta { get; set; }
         [Column("valor_respuesta")]
-        public int? ValorRespuesta { get; set; }
+        public byte? ValorRespuesta { get; set; }
 
         [Required]
         [StringLength(255)]

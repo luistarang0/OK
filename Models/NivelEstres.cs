@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OK.Models
 {
+    [Table("Nivel_estres")]
     public class NivelEstres
     {
         [Key]

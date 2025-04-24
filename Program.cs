@@ -57,5 +57,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "resultados",
+    pattern: "sisco/resultados/{idSesion}",
+    defaults: new { controller = "Sisco", action = "Resultados" });
 
 app.Run();

@@ -20,6 +20,8 @@ namespace OK.Controllers
 
         public IActionResult Login()
         {
+            TempData.Keep("RedirigirDespuesDeLogin");
+            TempData.Keep("Respuestas");
             return View();
         }
         public IActionResult Registro()
@@ -64,12 +66,18 @@ namespace OK.Controllers
             // Iniciar sesión (guardar el id del usuario en la sesión)
             HttpContext.Session.SetString("UserId", usuario.Id.ToString());
 
-            // Redirigir al perfil del usuario o a la página principal
-            return RedirectToAction("GuardarSesion", "Sisco");
+            // Redirigir al metodo de sesion
+            if (TempData.ContainsKey("RedirigirDespuesDeLogin"))
+            {
+                string action = TempData["RedirigirDespuesDeLogin"].ToString();
+                return RedirectToAction(action, "Sisco");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public IActionResult Registro(Usuario usuario)
+        public async Task<IActionResult> Registro(Usuario usuario)
         {
             // Verificar que el correo electrónico no esté en uso
             var existingUser = _context.Usuarios.FirstOrDefault(u => u.Email == usuario.Email);
@@ -92,19 +100,35 @@ namespace OK.Controllers
                 Email = usuario.Email,
                 Edad = usuario.Edad,
                 Sexo = usuario.Sexo,
-                Password = CifradoHelper.Hash(usuario.Password), // Aquí deberías cifrar la contraseña antes de guardarla
+                Password = CifradoHelper.Hash(usuario.Password),
                 FechaRegistro = DateTime.Now
             };
 
             _context.Usuarios.Add(nuevoUsuario);
             _context.SaveChanges();
 
-            // Iniciar sesión automáticamente
-            // Aquí puedes configurar la sesión del usuario si es necesario.
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, nuevoUsuario.Id.ToString()),
+                new Claim(ClaimTypes.Name, nuevoUsuario.Nombre),
+                new Claim(ClaimTypes.Email, nuevoUsuario.Email)
+            };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
             HttpContext.Session.SetString("UserId", nuevoUsuario.Id.ToString());
 
-            // Redirigir
-            return RedirectToAction("GuardarSesion", "Sisco");
+            // Redirección si venía del test
+            if (TempData.ContainsKey("RedirigirDespuesDeLogin"))
+            {
+                TempData.Keep("Respuestas"); // preserva las respuestas
+                string action = TempData["RedirigirDespuesDeLogin"].ToString();
+                return RedirectToAction(action, "Sisco");
+            }
+
+            return RedirectToAction("Perfil", "Usuarios");
 
         }
 

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OK.Data;
 using OK.Models;
+using System.Security.Claims;
 
 namespace OK.Controllers
 {
@@ -11,6 +13,10 @@ namespace OK.Controllers
 
         private readonly ApplicationDbContext _context;
 
+        public SiscoController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Instrucciones()
         {
@@ -25,8 +31,50 @@ namespace OK.Controllers
         {
             return View();
         }
+        
         [HttpPost]
-        public IActionResult Resultados(Respuestas respuestas)
+        public IActionResult Flujo(Respuestas respuestas)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData["Respuestas"] = JsonConvert.SerializeObject(respuestas);
+                TempData.Keep("Respuestas");
+                TempData["RedirigirDespuesDeLogin"] = "DeserializarResultados";
+                return RedirectToAction("Login", "Login");
+            }
+
+            return CalcularResultados(respuestas);
+        }
+
+        public IActionResult DeserializarResultados()
+        {
+            if (!TempData.ContainsKey("Respuestas"))
+                return RedirectToAction("Index", "Home");
+
+            var respuestas = JsonConvert.DeserializeObject<Respuestas>(TempData["Respuestas"].ToString());
+
+            return CalcularResultados(respuestas);
+        }
+
+        [HttpGet]
+        public IActionResult Resultados(int idSesion)
+        {
+            var sesion = _context.Sesiones
+                    .Include(s => s.NivelEstres)
+                    .Include(s => s.Recomendacion)
+                    .FirstOrDefault(s => s.Id == idSesion);
+
+            if (sesion == null)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.Porcentaje = sesion.Puntuacion;
+            ViewBag.Nivel = sesion.NivelEstres?.Descripcion ?? "Desconocido";
+            ViewBag.Tipo = sesion.Recomendacion?.Tipo ?? "No clasificado";
+
+            return View();
+        }
+
+        public IActionResult CalcularResultados(Respuestas respuestas)
         {
             var resultados = respuestas.Estresores
             .Concat(respuestas.Sintomas)
@@ -36,94 +84,60 @@ namespace OK.Controllers
             double media = resultados.Average();
             double porcentaje = media * 20;
 
-            string nivel;
-            if (porcentaje <= 48) nivel = "Leve";
-            else if (porcentaje <= 60) nivel = "Moderado";
-            else nivel = "Severo";
+            string nivelNombre = porcentaje <= 48 ? "Leve" :
+                                 porcentaje <= 60 ? "Moderado" : "Severo";
 
-            string tipo;
-            if (porcentaje <= 48) tipo = "Físico";
-            else if (porcentaje <= 60) tipo = "Conductual";
-            else tipo = "Cognitivo";
+            string tipo = porcentaje <= 48 ? "Físico" :
+                          porcentaje <= 60 ? "Conductual" : "Cognitivo";
 
-            ViewBag.Media = Math.Round(media, 2);
-            ViewBag.Porcentaje = Math.Round(porcentaje, 2);
-            ViewBag.Nivel = nivel;
-            ViewBag.Tipo = tipo;
+            // Obtener entidades desde la BD
+            var nivel = _context.NivelesEstres.FirstOrDefault(n => n.Descripcion == nivelNombre);
+            var recomendacion = _context.Recomendaciones.FirstOrDefault(r => r.Tipo.ToLower() == tipo.ToLower());
 
-            TempData["ResultadosTest"] = JsonConvert.SerializeObject(new
-            {
-                Media = media,
-                Porcentaje = porcentaje,
-                Nivel = nivel,
-                Tipo = tipo,
-                Estresores = respuestas.Estresores,
-                Sintomas = respuestas.Sintomas,
-                Afrontamiento = respuestas.Afrontamiento
-            });
-
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "Login"); // o como sea tu controlador de autenticación
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult GuardarSesion()
-        {
-            if (!TempData.ContainsKey("ResultadosTest")) return RedirectToAction("Index", "Home");
-
-            var json = TempData["ResultadosTest"].ToString();
-            var data = JsonConvert.DeserializeObject<ResultadosTemp>(json);
-
-
-            // Ejemplo: buscar nivel y recomendación según porcentaje/tipo
-            var nivelEstres = _context.NivelesEstres
-                .FirstOrDefault(n => (int)data.Porcentaje <= n.Rango);
-            var recomendacion = _context.Recomendaciones
-                .FirstOrDefault(r => r.Tipo.ToLower() == ((string)data.Tipo).ToLower());
-
+            int lastId = _context.Sesiones.Max(s => (int?)s.Id) ?? 0;
+            
             var sesion = new SesionEvaluaciones
             {
                 FechaRealizacion = DateTime.Now,
-                IdUsuario = ObtenerIdUsuarioActual(), // método que toma el ID del User actual
-                Puntuacion = (int)data.Porcentaje,
-                IdNivelEstres = nivelEstres?.Id,
+                IdUsuario = ObtenerIdUsuarioActual(),
+                Puntuacion = (byte)porcentaje,
+                IdNivelEstres = nivel?.Id,
                 IdRecomendacion = recomendacion?.Id,
-                IdNivelSatisfaccion = null, // si aplica después
-                Estatus = 1 // o 2 según la lógica
+                Estatus = 1
             };
+
+            sesion.Id = lastId + 1;
 
             _context.Sesiones.Add(sesion);
             _context.SaveChanges();
 
-            // Insertar respuestas individuales en Respuesta_test
             var preguntas = new List<int>();
-            preguntas.AddRange(data.Estresores);
-            preguntas.AddRange(data.Sintomas);
-            preguntas.AddRange(data.Afrontamiento);
+            preguntas.AddRange(respuestas.Estresores);
+            preguntas.AddRange(respuestas.Sintomas);
+            preguntas.AddRange(respuestas.Afrontamiento);
 
-
+            lastId = _context.RespuestasTest.Max(r => (int?)r.Id) ?? 0;
             for (int i = 0; i < preguntas.Count; i++)
             {
+                lastId++;
                 _context.RespuestasTest.Add(new RespuestaTest
                 {
+                    Id = lastId,
                     IdSesion = sesion.Id,
                     IdPreguntaTest = i + 1,
-                    ValorRespuesta = preguntas[i],
+                    ValorRespuesta = (byte)preguntas[i],
                     ValorResTexto = preguntas[i].ToString()
                 });
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Resultados", "Sisco");
+
+            return RedirectToAction("Resultados", "Sisco", new { idSesion = sesion.Id });
         }
 
         private int ObtenerIdUsuarioActual()
         {
-            var userIdClaim = User.FindFirst("Id");
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
             if (userIdClaim == null)
                 throw new Exception("No se encontró el ID del usuario en los claims.");

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OK.Models
 {
+    [Table("Recomendaciones")]
     public class Recomendacion
     {
         [Key]

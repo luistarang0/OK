@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OK.Models
 {
+    [Table("Sesion_evaluaciones")]
     public class SesionEvaluaciones
     {
         [Key]
@@ -21,7 +22,7 @@ namespace OK.Models
         public Usuario? Usuario { get; set; }
 
         [Column("puntuacion")]
-        public int? Puntuacion { get; set; }
+        public short? Puntuacion { get; set; }
 
         [Column("id_recomendacion")]
         public int? IdRecomendacion { get; set; }
@@ -32,7 +33,7 @@ namespace OK.Models
         public NivelEstres? NivelEstres { get; set; }
 
         [Column("estatus")]
-        public int Estatus { get; set; } = 1; // 1 = activa, 2 = finalizada
+        public byte Estatus { get; set; } = 1; // 1 = activa, 2 = finalizada
 
         // Relaciones inversas si deseas
         public ICollection<RespuestaTest>? RespuestasTest { get; set; }

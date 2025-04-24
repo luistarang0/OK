@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OK.Models
 {
+    [Table("Preguntas_test")]
     public class PreguntaTest
     {
         [Key]
@@ -19,7 +20,7 @@ namespace OK.Models
         [Column("tipo_pregunta")]
         public string TipoPregunta { get; set; } = string.Empty; // filtro, intensidad, frecuencia
         [Column("orden")]
-        public int Orden { get; set; }
+        public byte Orden { get; set; }
         [Column("id_dimension")]
         public int IdDimension { get; set; }
 

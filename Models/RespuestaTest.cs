@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OK.Models
 {
+    [Table("Respuesta_test")]
     public class RespuestaTest
     {
         [Key]
@@ -25,7 +26,7 @@ namespace OK.Models
 
         [Required]
         [Column("valor_respuesta")]
-        public int ValorRespuesta { get; set; }
+        public byte ValorRespuesta { get; set; }
 
         [Required]
         [StringLength(80)]
