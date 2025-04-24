@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using OK.Data;
+using OK.Helpers;
 using OK.Models;
-using System.Security.Claims;
 
 namespace OK.Controllers
 {
@@ -99,7 +99,7 @@ namespace OK.Controllers
             var sesion = new SesionEvaluaciones
             {
                 FechaRealizacion = DateTime.Now,
-                IdUsuario = ObtenerIdUsuarioActual(),
+                IdUsuario = UsuarioHelper.ObtenerIdUsuarioActual(User),
                 Puntuacion = (byte)porcentaje,
                 IdNivelEstres = nivel?.Id,
                 IdRecomendacion = recomendacion?.Id,
@@ -133,17 +133,6 @@ namespace OK.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Resultados", "Sisco", new { idSesion = sesion.Id });
-        }
-
-        private int ObtenerIdUsuarioActual()
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-
-            if (userIdClaim == null)
-                throw new Exception("No se encontró el ID del usuario en los claims.");
-
-            return int.Parse(userIdClaim.Value);
-        }
-
+        }             
     }
 }

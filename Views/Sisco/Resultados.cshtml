@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Resultado del Test SISCO";
+    int maxMarks = (int)(ViewBag.Porcentaje / 100.0 * 360);
 }
 
 @section Styles {
@@ -22,9 +23,9 @@
             </div>
 
             <div class="meter-marks">
-                @for (int i = 0; i <= 180; i += 9)
+                @for (int i = 0; i <= maxMarks; i += 9)
                 {
-                    <div class="mark" style="transform: rotate(@i deg);"></div>
+                    <div class="mark" style="transform: rotate(@($"{i}deg"));"></div>
                 }
             </div>
         </div>

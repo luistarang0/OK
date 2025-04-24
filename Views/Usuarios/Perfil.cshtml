@@ -1,5 +1,8 @@
-﻿@{
+﻿@model OK.Models.Usuario
+
+@{
     ViewData["Title"] = "Perfil";
+    int maxMarks = (int)(ViewBag.Porcentaje / 100.0 * 360);
 }
 
 @section Styles {
@@ -26,99 +29,120 @@
                 </div>
                 <div class="profile-name">
                     <h2>Perfil de Usuario</h2>
-                    <p>Miembro desde <span id="memberSince">-</span></p>
+                    <p>Miembro desde <span id="memberSince" data-fecha="@Model.FechaRegistro.ToString("yyyy-MM-dd")">-</span></p>
                 </div>
             </div>
 
-            <div class="profile-details">
-                <div class="detail-item">
-                    <label>Nombre:</label>
-                    <span id="nombre"></span>
-                </div>
-                <div class="detail-item">
-                    <label>Apellido:</label>
-                    <span id="apellido"></span>
-                </div>
-                <div class="detail-item">
-                    <label>Email:</label>
-                    <span id="email"></span>
-                </div>
-                <div class="detail-item">
-                    <label>Fecha de creación:</label>
-                    <span id="fechaCreacion"></span>
-                </div>
-                <div class="detail-item">
-                    <label>Último acceso:</label>
-                    <span id="ultimoAcceso"></span>
-                </div>
-                <div class="detail-item">
-                    <label>Semestre:</label>
-                    <span id="semestre"></span>
-                </div>
-            </div>
+            <form method="post" action="@Url.Action("Editar", "Usuarios")">
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <label>Nombre:</label>
+                        <span class="display-mode">@Model.Nombre</span>
+                        <input class="edit-mode form-input" type="text" name="Nombre" value="@Model.Nombre" style="display:none;" required />
+                    </div>
 
-            <div class="profile-actions">
-                <button class="edit-btn" id="editProfileBtn">
-                    <span class="btn-icon">✏️</span>
-                    Modificar información
-                </button>
-                <button class="delete-btn" id="deleteAccountBtn">
-                    <span class="btn-icon">🗑️</span>
-                    Borrar cuenta
-                </button>
-            </div>
+                    <div class="detail-item">
+                        <label>Apellido Paterno:</label>
+                        <span class="display-mode">@Model.ApPat</span>
+                        <input class="edit-mode form-input" type="text" name="ApPat" value="@Model.ApPat" style="display:none;" required/>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Apellido Materno:</label>
+                        <span class="display-mode">@Model.ApMat</span>
+                        <input class="edit-mode form-input" type="text" name="ApMat" value="@Model.ApMat" style="display:none;" required />
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Edad:</label>
+                        <span class="display-mode">@Model.Edad</span>
+                        <input class="edit-mode form-input" type="number" name="Edad" value="@Model.Edad" style="display:none;" min="15" max="99" required />
+                    </div>
+
+                    <div class="detail-item no-edit">
+                        <label>Email:</label>
+                        <span class="display-mode">@Model.Email</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Carrera:</label>
+                        <span class="display-mode">@Model.Carrera</span>
+                        <input class="edit-mode form-input" type="text" name="Carrera" value="@Model.Carrera" style="display:none;" />
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Semestre:</label>
+                        <span class="display-mode">@Model.Semestre</span>
+                        <input class="edit-mode form-input" type="number" name="Semestre" value="@Model.Semestre" style="display:none;" />
+                    </div>
+
+                    <div class="detail-item no-edit">
+                        <label>Fecha de creación:</label>
+                        <span class="display-mode">@Model.FechaRegistro.ToString("dd/MM/yyyy")</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <label class="edit-mode" style="display:none;">Nueva contraseña:</label>
+                        <input class="edit-mode form-input" type="password" name="Password" placeholder="••••••••" style="display:none;" />
+                    </div>
+
+                    <div class="detail-item">
+                        <label class="edit-mode" style="display:none;">Confirmar contraseña:</label>
+                        <input class="edit-mode form-input" type="password" name="ConfirmarPassword" placeholder="••••••••" style="display:none;" />
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="edit-btn" id="editProfileBtn">
+                        <span class="btn-icon">✏️</span>
+                        Modificar información
+                    </button>
+
+                    <button class="edit-buttons" type="submit" style="display:none;">
+                        Guardar cambios
+                    </button>
+
+                    <button type="button" class="edit-buttons cancel-btn" style="display:none;">Cancelar</button>
+
+
+                    <button class="delete-btn" id="deleteAccountBtn">
+                        <span class="btn-icon">🗑️</span>
+                        Borrar cuenta
+                    </button>
+                </div>
+            </form>
         </section>
 
         <!-- Sección del medidor y nivel -->
         <section class="progress-section">
             <div class="progress-title">
-                <h2>Tu <span class="gradient-text">Progreso</span></h2>
-                <p>Sigue avanzando para desbloquear nuevos niveles</p>
+                <h2>Tu <span class="gradient-text">Nivel de Estrés</span></h2>
+                <p>Prueba el minijuego de acuerdo a tu nivel</p>
             </div>
 
             <div class="meter-container">
                 <!-- Fondo del medidor -->
-                <div class="meter-bg" style="--progress: 65%">
+            <div class="meter-bg" style="--progress: @ViewBag.Porcentaje%">
                     <!-- Centro del medidor -->
                     <div class="meter-inner">
-                        <p class="meter-value">65%</p>
-                        <p class="meter-label">de progreso</p>
+                    <p class="meter-value">@ViewBag.Porcentaje%</p>
+                        <p class="meter-label">de estrés</p>
                     </div>
                 </div>
 
                 <!-- Marcadores del medidor -->
-                <div class="meter-marks">
-                    <!-- Generamos 20 marcadores distribuidos en semicírculo -->
-                    <div class="mark" style="transform: rotate(0deg);"></div>
-                    <div class="mark" style="transform: rotate(9deg);"></div>
-                    <div class="mark" style="transform: rotate(18deg);"></div>
-                    <div class="mark" style="transform: rotate(27deg);"></div>
-                    <div class="mark" style="transform: rotate(36deg);"></div>
-                    <div class="mark" style="transform: rotate(45deg);"></div>
-                    <div class="mark" style="transform: rotate(54deg);"></div>
-                    <div class="mark" style="transform: rotate(63deg);"></div>
-                    <div class="mark" style="transform: rotate(72deg);"></div>
-                    <div class="mark" style="transform: rotate(81deg);"></div>
-                    <div class="mark" style="transform: rotate(90deg);"></div>
-                    <div class="mark" style="transform: rotate(99deg);"></div>
-                    <div class="mark" style="transform: rotate(108deg);"></div>
-                    <div class="mark" style="transform: rotate(117deg);"></div>
-                    <div class="mark" style="transform: rotate(126deg);"></div>
-                    <div class="mark" style="transform: rotate(135deg);"></div>
-                    <div class="mark" style="transform: rotate(144deg);"></div>
-                    <div class="mark" style="transform: rotate(153deg);"></div>
-                    <div class="mark" style="transform: rotate(162deg);"></div>
-                    <div class="mark" style="transform: rotate(171deg);"></div>
-                    <div class="mark" style="transform: rotate(180deg);"></div>
-                </div>
+            <div class="meter-marks">
+                @for (int i = 0; i <= maxMarks; i += 9)
+                {
+                    <div class="mark" style="transform: rotate(@($"{i}deg"));"></div>
+                }
+            </div>
             </div>
 
             <div class="level-info">
-                <h3 class="level-title">Nivel 3: Medianamente Estresado</h3>
+            <h3 class="level-title">Nivel: @ViewBag.Nivel</h3>
                 <p class="level-description">
-                    Tienes el nivel de estres medianamente alto, debes de empezar a relajarte
-                    y buscar actividades que ayuden a disminuir el estres. Este nivel no es
-                    tan preocupante pero hay que tomar medidas.
+                @ViewBag.Recomendacion
                 </p>
             </div>
         </section>
@@ -129,29 +153,89 @@
     <script>
         // JavaScript para controlar el menú desplegable
         document.addEventListener('DOMContentLoaded', function() {
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const editFields = document.querySelectorAll('.edit-mode');
+            const displayFields = document.querySelectorAll('.display-mode');
+            const editButtons = document.querySelectorAll('.edit-buttons');
+            const noEditFields = document.querySelectorAll('.no-edit');
+            
+            const spanFecha = document.getElementById('memberSince');
+            const rawDate = spanFecha.dataset.fecha;
+            const fecha = new Date(rawDate);
 
-            // Aquí podríamos añadir código para cargar los datos del perfil desde el servidor
-            // Por ahora solo mostraremos la fecha de miembro desde como ejemplo
-            document.getElementById('memberSince').textContent = "Enero 2025";
+            const opciones = { year: 'numeric', month: 'long' };
+            const fechaFormateada = fecha.toLocaleDateString('es-MX', opciones);
+
+            const form = document.querySelector('form');
+            const pass = document.querySelector('input[name="Password"]');
+            const confirm = document.querySelector('input[name="ConfirmarPassword"]');
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            // Capitalizar la primera letra del mes (opcional)
+            spanFecha.textContent = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
 
             // Función para animar el medidor cuando la página cargue
             setTimeout(function() {
                 const meterBg = document.querySelector('.meter-bg');
-                meterBg.style.setProperty('--progress', '65%');
+                meterBg.style.setProperty('--progress', '@ViewBag.Porcentaje%');
             }, 300);
 
             // Manejadores para los botones de acción
-            const editProfileBtn = document.getElementById('editProfileBtn');
             const deleteAccountBtn = document.getElementById('deleteAccountBtn');
 
             // Evento para el botón de modificar
             if (editProfileBtn) {
                 editProfileBtn.addEventListener('click', function() {
-                    // Aquí iría la lógica para modificar el perfil
                     alert('Redirigiendo al formulario de modificación de perfil...');
-                    // window.location.href = '@Url.Action("EditarPerfil", "Usuarios")';
                 });
             }
+
+            editProfileBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                editFields.forEach(f => f.style.display = 'inline');
+                displayFields.forEach(s => s.style.display = 'none');
+                editButtons.forEach(b => b.style.display = 'inline-block');
+                editProfileBtn.style.display = 'none';
+                noEditFields.forEach(f => f.style.display = 'none');
+            });
+
+            document.querySelector('.cancel-btn').addEventListener('click', function () {
+                location.reload(); // Refresca la vista y recupera los datos originales
+            });
+
+            form.addEventListener('submit', function (e) {
+                let isValid = true;
+
+                // Si hay contraseña, debe coincidir con la confirmación
+                if (pass.value && pass.value !== confirm.value) {
+                    alert("Las contraseñas no coinciden.");
+                    isValid = false;
+                }
+
+                // Validar campos requeridos
+                const requiredFields = form.querySelectorAll('input[required]');
+                requiredFields.forEach(function (input) {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+
+            // Opcional: Deshabilitar el botón si falta algo
+            form.addEventListener('input', function () {
+                const requiredFields = form.querySelectorAll('input[required]');
+                let allFilled = true;
+                requiredFields.forEach(input => {
+                    if (!input.value.trim()) {
+                        allFilled = false;
+                    }
+                });
+                submitBtn.disabled = !allFilled;
+            });
 
             // Evento para el botón de borrar cuenta
             if (deleteAccountBtn) {

@@ -225,6 +225,32 @@
     color: #333;
 }
 
+.edit-buttons {
+    background: linear-gradient(to right, #A8E6CF, #DCEDC1);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.edit-mode.form-input {
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    min-height: 18px;
+    width: 100%;
+    max-width: 100%; /* Asegura que no se pasen de su celda */
+    font-size: 13px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.edit-mode.form-input:focus {
+    border-color: #A8E6CF;
+    box-shadow: 0 0 4px rgba(168, 230, 207, 0.6);
+    outline: none;
+}
+
 .edit-btn:hover {
     background: linear-gradient(to right, #97d4bd, #c9dba7);
     transform: translateY(-2px);
