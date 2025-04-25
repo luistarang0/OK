@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OK.Data;
 using OK.Helpers;
@@ -7,18 +8,19 @@ using System.Security.Claims;
 
 namespace OK.Controllers
 {
-    public class UsuariosController : Controller
+    public class UsuariosController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public UsuariosController(ApplicationDbContext context)
+        public UsuariosController(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
+        [Authorize]
         public IActionResult Perfil()
         {            
-            int userId = UsuarioHelper.ObtenerIdUsuarioActual(User);
+            int? userId = UsuarioHelper.ObtenerIdUsuarioActual(User);
 
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Id == userId);
 
@@ -50,7 +52,7 @@ namespace OK.Controllers
         [HttpPost]
         public IActionResult Editar(Usuario model)
         {
-            int userId = UsuarioHelper.ObtenerIdUsuarioActual(User);
+            int? userId = UsuarioHelper.ObtenerIdUsuarioActual(User);
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Id == userId);
 
             if (usuario == null)

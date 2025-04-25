@@ -15,7 +15,10 @@
         <nav>
             <a asp-controller="Home" asp-action="Index">HOME</a>
             <a href="#">Acerca</a>
-            <a asp-controller="Sisco" asp-action="Comienzo">Test</a>
+            @if (ViewData["PuedeRealizarTest"] as bool? == true)
+            {
+                <a asp-controller="Sisco" asp-action="Comienzo">Test</a>
+            }            
             <a href="#">Minijuegos</a>
             <a href="#">Explorar</a>
         </nav>

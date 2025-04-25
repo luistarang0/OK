@@ -5,14 +5,15 @@ namespace OK.Helpers
 {
     public class UsuarioHelper
     {
-        public static int ObtenerIdUsuarioActual(ClaimsPrincipal user)
+        public static int? ObtenerIdUsuarioActual(ClaimsPrincipal user)
         {
             var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return null;
 
-            if (userIdClaim == null)
-                throw new Exception("No se encontró el ID del usuario en los claims.");
+            if (int.TryParse(userIdClaim.Value, out int id))
+                return id;
 
-            return int.Parse(userIdClaim.Value);
+            return null;
         }
     }
 }

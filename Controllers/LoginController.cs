@@ -8,12 +8,12 @@ using System.Security.Claims;
 
 namespace OK.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
 
         private readonly ApplicationDbContext _context;
 
-        public LoginController(ApplicationDbContext context)
+        public LoginController(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

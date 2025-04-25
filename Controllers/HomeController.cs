@@ -1,20 +1,49 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using OK.Helpers;
 using OK.Models;
+using OK.Data;
 
 namespace OK.Controllers;
 
-public class HomeController : Controller
+public class HomeController : BaseController
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly ApplicationDbContext _context;
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context) : base(context)
     {
+        _context = context;
         _logger = logger;
     }
 
     public IActionResult Index()
     {
+        bool mostrarEncuesta = false;
+
+        if (User.Identity.IsAuthenticated)
+        {
+            int? userId = UsuarioHelper.ObtenerIdUsuarioActual(User);
+
+            var ultimaSesion = _context.Sesiones
+                .Where(s => s.IdUsuario == userId && s.Puntuacion > 0)
+                .OrderByDescending(s => s.FechaRealizacion)
+                .FirstOrDefault();
+
+            if (ultimaSesion != null)
+            {
+                // Buscar si ya existen respuestas de encuesta para esta sesión
+                var yaRespondioEncuesta = _context.RespuestasEncuesta
+                    .Any(r => r.IdSesion == ultimaSesion.Id);
+
+                if (!yaRespondioEncuesta)
+                {
+                    mostrarEncuesta = true;
+                }
+            }
+        }
+
+        ViewBag.MostrarEncuesta = mostrarEncuesta;
         return View();
     }
 

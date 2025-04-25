@@ -18,8 +18,8 @@ builder.Services.AddSession(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Login"; // Página de login
-                    options.LogoutPath = "/Logout"; // Página de logout
+                    options.LoginPath = "/Login/Login"; // Página de login
+                    options.LogoutPath = "/Login/Logout"; // Página de logout
                 });
 
 

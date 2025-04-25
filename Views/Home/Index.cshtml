@@ -3,59 +3,71 @@
 }
 
 @section Styles {
-<link rel="stylesheet" href="@Url.Content("~/css/encuesta_estilos.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/encuesta_estilos.css")" />
 }
 
 
 
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1><span class="gradient-text">Juega con propósito</span> Fundación OK</h1>
-                <p>Toris es un gran programador</p>
-                <p>Juega con propósito</p>
-                <div class="button-contenedor">
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1><span class="gradient-text">Juega con propósito</span> Fundación OK</h1>
+            <p>Toris es un gran programador</p>
+            <p>Juega con propósito</p>
+            <div class="button-contenedor">
+                @if (ViewData["PuedeRealizarTest"] as bool? == true)
+                {
                     <a asp-controller="Sisco" asp-action="Comienzo" class="explore-btn">
                         Test<span class="circle"></span>
                     </a>
-                    <button class="create-btn">Jugar</button>
-                </div>
+                }
+
+                <button class="create-btn">Jugar</button>
             </div>
-            <div class="hero-images">
-                <div class="image-grid">
-                    <div class="grid-item" style="border-top-left-radius: 30%; border-bottom-left-radius: 30%;">
-                        <img src="@Url.Content("~/images/fondo1.jpg")" alt="Imagen 1">
-                    </div>
-                    <div class="grid-item" style="border-bottom-left-radius: 30%; border-bottom-right-radius: 30%;">
-                        <img src="@Url.Content("~/images/fondo2.jpeg")" alt="Imagen 2">
-                    </div>
-                    <div class="grid-item" style="border-top-right-radius: 30%; border-bottom-left-radius: 30%;">
-                        <img src="@Url.Content("~/images/fondo3.jpg")" alt="Imagen 3">
-                    </div>
-                    <div class="grid-item" style="border-top-left-radius: 30%; border-bottom-right-radius: 30%;">
-                        <img src="@Url.Content("~/images/fondo4.jpg")" alt="Imagen 4">
-                    </div>
+        </div>
+        <div class="hero-images">
+            <div class="image-grid">
+                <div class="grid-item" style="border-top-left-radius: 30%; border-bottom-left-radius: 30%;">
+                    <img src="@Url.Content("~/images/fondo1.jpg")" alt="Imagen 1">
+                </div>
+                <div class="grid-item" style="border-bottom-left-radius: 30%; border-bottom-right-radius: 30%;">
+                    <img src="@Url.Content("~/images/fondo2.jpeg")" alt="Imagen 2">
+                </div>
+                <div class="grid-item" style="border-top-right-radius: 30%; border-bottom-left-radius: 30%;">
+                    <img src="@Url.Content("~/images/fondo3.jpg")" alt="Imagen 3">
+                </div>
+                <div class="grid-item" style="border-top-left-radius: 30%; border-bottom-right-radius: 30%;">
+                    <img src="@Url.Content("~/images/fondo4.jpg")" alt="Imagen 4">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="collections">
-        <h2>Actividades Destacadas</h2>
-        <div class="cards">
+<section class="collections">
+    <h2>Actividades Destacadas</h2>
+    <div class="cards">
+        @if (ViewData["PuedeRealizarTest"] as bool? == true)
+        {
             <a asp-controller="Sisco" asp-action="Comienzo" class="card orange-card">
                 <div><h3>Test SISCO</h3></div>
             </a>
-            <div class="card blue-card">
-                <h3>Respiración</h3>
-            </div>
+        }
+        <div class="card blue-card">
+            <h3>Respiración</h3>
         </div>
-    </section>
+    </div>
+</section>
 
-<button class="feedback-btn" id="feedbackBtn">
-    <span class="feedback-icon">😊</span>
-    <span class="feedback-text">Tu opinión</span>
-</button>
+@if (ViewBag.MostrarEncuesta == true)
+{
+    <button class="feedback-btn" id="feedbackBtn">
+        <span class="feedback-icon">😊</span>
+        <span class="feedback-text">Tu opinión</span>
+    </button>
+}
+
+
 <!-- Encuesta de Satisfacción Modal -->
 <div class="feedback-overlay" id="feedbackOverlay">
     <div class="feedback-modal">

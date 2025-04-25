@@ -8,12 +8,12 @@ using OK.Models;
 
 namespace OK.Controllers
 {
-    public class SiscoController : Controller
+    public class SiscoController : BaseController
     {
 
         private readonly ApplicationDbContext _context;
 
-        public SiscoController(ApplicationDbContext context)
+        public SiscoController(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
