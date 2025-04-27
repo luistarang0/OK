@@ -48,7 +48,7 @@ public class HomeController : BaseController
     }
 
     [HttpPost]
-    public IActionResult CalcularSatisfaccion([FromBody] EncuestaSatisfaccion datos)
+    public IActionResult CalcularSatisfaccion(EncuestaSatisfaccion datos)
     {
         var respuestas = new List<int> { datos.Platform, datos.Test, datos.Minigame };
 
@@ -62,14 +62,88 @@ public class HomeController : BaseController
         else if (porcentaje <= 80) interpretacion = "Satisfecho";
         else interpretacion = "Muy satisfecho";
 
-        // Aquí podrías guardar en la base de datos también...
-
-        return Json(new
+        // Guardar en la base de datos si el usuario está autenticado
+        if (User.Identity.IsAuthenticated)
         {
-            porcentaje = Math.Round(porcentaje, 2),
-            interpretacion,
-            comentario = datos.Comments
-        });
+            int? userId = UsuarioHelper.ObtenerIdUsuarioActual(User);
+
+            var ultimaSesion = _context.Sesiones
+                .Where(s => s.IdUsuario == userId && s.Puntuacion > 0)
+                .OrderByDescending(s => s.FechaRealizacion)
+                .FirstOrDefault();
+
+            if (ultimaSesion != null)
+            {
+                int lastId = _context.RespuestasEncuesta.Max(r => (int?)r.Id) ?? 0;
+
+                var respuestasBD = new List<RespuestaEncuesta>();
+
+                var nivel = _context.NivelesSatisfaccion
+                    .FirstOrDefault(n => n.Descripcion.ToLower() == interpretacion.ToLower());
+
+                if (nivel != null)
+                {
+                    ultimaSesion.IdNivelSatisfaccion = nivel.Id;
+                }
+
+                var nivp = _context.NivelesSatisfaccion
+                    .FirstOrDefault(n => n.Id == datos.Platform);
+                respuestasBD.Add(new RespuestaEncuesta
+                {
+                    Id = ++lastId,
+                    IdSesion = ultimaSesion.Id,
+                    IdPreguntaEncuesta = 1,
+                    ValorRespuesta = (byte)datos.Platform,
+                    ValorResTexto = nivp.Descripcion,
+                    FechaRespuesta = DateTime.Now
+                });
+
+                var nivt = _context.NivelesSatisfaccion
+                    .FirstOrDefault(n => n.Id == datos.Test);
+                respuestasBD.Add(new RespuestaEncuesta
+                {
+                    Id = ++lastId,
+                    IdSesion = ultimaSesion.Id,
+                    IdPreguntaEncuesta = 2,
+                    ValorRespuesta = (byte)datos.Test,
+                    ValorResTexto = nivt.Descripcion,
+                    FechaRespuesta = DateTime.Now
+                });
+
+                var nivm = _context.NivelesSatisfaccion
+                    .FirstOrDefault(n => n.Id == datos.Minigame);
+                respuestasBD.Add(new RespuestaEncuesta
+                {
+                    Id = ++lastId,
+                    IdSesion = ultimaSesion.Id,
+                    IdPreguntaEncuesta = 3,
+                    ValorRespuesta = (byte)datos.Minigame,
+                    ValorResTexto = nivm.Descripcion,
+                    FechaRespuesta = DateTime.Now
+                });
+
+                if (!string.IsNullOrWhiteSpace(datos.Comments))
+                {
+                    respuestasBD.Add(new RespuestaEncuesta
+                    {
+                        Id = ++lastId,
+                        IdSesion = ultimaSesion.Id,
+                        IdPreguntaEncuesta = 4, // Comentarios libres
+                        ValorRespuesta = 0,
+                        ValorResTexto = datos.Comments,
+                        FechaRespuesta = DateTime.Now
+                    });
+                }
+
+                _context.RespuestasEncuesta.AddRange(respuestasBD);
+                _context.SaveChanges();
+            }
+
+        }
+
+        // Redireccionar al Login
+        return RedirectToAction("Index");
+
     }
 
 }

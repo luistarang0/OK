@@ -76,7 +76,7 @@
             <button class="close-btn" id="closeFeedbackBtn">&times;</button>
         </div>
         <div class="feedback-content">
-            <form id="feedbackForm">
+            <form id="feedbackForm" method="POST" action="/Home/CalcularSatisfaccion">
                 <!-- Pregunta 1 -->
                 <div class="feedback-question">
                     <h3>¿Cómo calificarías tu experiencia con nuestra plataforma?</h3>
@@ -194,7 +194,7 @@
                 </div>
 
                 <div class="feedback-submit">
-                    <button type="submit" class="submit-feedback-btn">Enviar opinión</button>
+                    <button type="submit" class="submit-feedback-btn" id="submitFeedbackBtn">Enviar opinión</button>
                 </div>
             </form>
         </div>
@@ -209,6 +209,7 @@
         const feedbackForm = document.getElementById('feedbackForm');
         const commentEmoji = document.getElementById('commentEmoji');
         const feedbackComments = document.getElementById('feedbackComments');
+        const submitBtn = document.getElementById('submitFeedbackBtn');
 
         // Mostrar la encuesta
         feedbackBtn.addEventListener('click', function() {
@@ -249,40 +250,16 @@
         // Enviar el formulario
         feedbackForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const platform = parseInt(document.querySelector('input[name="platform"]:checked')?.value || 0);
-            const test = parseInt(document.querySelector('input[name="test"]:checked')?.value || 0);
-            const minigame = parseInt(document.querySelector('input[name="minigame"]:checked')?.value || 0);
-            const comments = document.getElementById('feedbackComments').value.trim();
+            alert('¡Gracias por tu opinión!');
 
-            const data = {
-                platform,
-                test,
-                minigame,
-                comments
-            };
+            // Después de aceptar la alerta, enviamos el formulario
+            submitForm();
 
-            fetch('/Home/CalcularSatisfaccion', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(result => {
-                const mensaje = `¡Gracias por tu opinión!\n\nTu nivel de satisfacción es: ${result.porcentaje}%\nInterpretación: ${result.interpretacion}`;
-                alert(mensaje);
-
-                feedbackOverlay.classList.remove('show');
-                document.body.style.overflow = '';
-                feedbackForm.reset();
-                commentEmoji.textContent = '💭';
-            })
-            .catch(err => {
-                console.error("Error al enviar la encuesta:", err);
-                alert("Ocurrió un error al enviar tu opinión. Inténtalo de nuevo.");
             });
-        });
+
+        function submitForm() {
+            feedbackForm.submit(); // Enviar el formulario de manera tradicional después de la alerta
+        }
 
         // Selección de emojis
         const emojiOptions = document.querySelectorAll('.emoji-option');
