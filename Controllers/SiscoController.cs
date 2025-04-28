@@ -82,10 +82,13 @@ namespace OK.Controllers
         [HttpGet]
         public IActionResult Resultados(int idSesion)
         {
+            int? userId = UsuarioHelper.ObtenerIdUsuarioActual(User);
+
+
             var sesion = _context.Sesiones
                     .Include(s => s.NivelEstres)
                     .Include(s => s.Recomendacion)
-                    .FirstOrDefault(s => s.Id == idSesion);
+                    .FirstOrDefault(s => s.Id == idSesion && s.IdUsuario == userId);
 
             if (sesion == null)
                 return RedirectToAction("Index", "Home");
