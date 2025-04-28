@@ -115,6 +115,19 @@
 
         <!-- Sección del medidor y nivel -->
         <section class="progress-section">
+        @if (ViewData["PuedeRealizarTest"] as bool? == true)
+        {
+            <div class="progress-title">
+                <h2>Mide <span class="gradient-text">Tu Nivel de Estrés</span></h2>
+                <p>Realiza el test ahora para conocer tu nivel de estrés</p>
+            </div>
+            <div class="test-option">
+                <a asp-controller="Sisco" asp-action="Comienzo" class="create-btn">
+                    <span class="btn-icon">📝</span>
+                    Realizar Test
+                </a>
+            </div>
+        } else {
             <div class="progress-title">
                 <h2>Tu <span class="gradient-text">Nivel de Estrés</span></h2>
                 <p>Prueba el minijuego de acuerdo a tu nivel</p>
@@ -145,7 +158,8 @@
                 @ViewBag.Recomendacion
                 </p>
             </div>
-        </section>
+        }
+        </section>        
     </main>
 
 @section Scripts {

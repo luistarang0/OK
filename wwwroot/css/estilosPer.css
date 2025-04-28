@@ -293,3 +293,26 @@
         justify-content: center;
     }
 }
+
+.test-option a.create-btn {
+    background: linear-gradient(to right, #A8E6CF, #DCEDC1);
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+    .test-option a.create-btn:hover {
+        background: linear-gradient(to right, #97d4bd, #c9dba7);
+        transform: translateY(-2px);
+    }
+
+    .test-option a.create-btn .btn-icon {
+        font-size: 18px;
+    }

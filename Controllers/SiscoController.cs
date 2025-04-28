@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -20,15 +21,36 @@ namespace OK.Controllers
 
         public IActionResult Instrucciones()
         {
+            var puedeRealizarTest = ViewData["PuedeRealizarTest"] as bool? ?? true;
+
+            if (!puedeRealizarTest)
+            {
+                // El usuario no puede realizar el test porque ya lo hizo recientemente
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         public IActionResult Comienzo()
         {
+            var puedeRealizarTest = ViewData["PuedeRealizarTest"] as bool? ?? true;
+
+            if (!puedeRealizarTest)
+            {
+                // El usuario no puede realizar el test porque ya lo hizo recientemente
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         public IActionResult Sisco()
         {
+            var puedeRealizarTest = ViewData["PuedeRealizarTest"] as bool? ?? true;
+
+            if (!puedeRealizarTest)
+            {
+                // El usuario no puede realizar el test porque ya lo hizo recientemente
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         
@@ -56,6 +78,7 @@ namespace OK.Controllers
             return CalcularResultados(respuestas);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Resultados(int idSesion)
         {
