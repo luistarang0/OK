@@ -20,8 +20,6 @@ namespace OK.Controllers
 
         public IActionResult Login()
         {
-            TempData.Keep("RedirigirDespuesDeLogin");
-            TempData.Keep("Respuestas");
             return View();
         }
         public IActionResult Registro()
@@ -122,8 +120,7 @@ namespace OK.Controllers
 
             // Redirección si venía del test
             if (TempData.ContainsKey("RedirigirDespuesDeLogin"))
-            {
-                TempData.Keep("Respuestas"); // preserva las respuestas
+            {                
                 string action = TempData["RedirigirDespuesDeLogin"].ToString();
                 return RedirectToAction(action, "Sisco");
             }

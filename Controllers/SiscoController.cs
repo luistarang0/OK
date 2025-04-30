@@ -60,7 +60,6 @@ namespace OK.Controllers
             if (!User.Identity.IsAuthenticated)
             {
                 TempData["Respuestas"] = JsonConvert.SerializeObject(respuestas);
-                TempData.Keep("Respuestas");
                 TempData["RedirigirDespuesDeLogin"] = "DeserializarResultados";
                 return RedirectToAction("Login", "Login");
             }
@@ -74,6 +73,8 @@ namespace OK.Controllers
                 return RedirectToAction("Index", "Home");
 
             var respuestas = JsonConvert.DeserializeObject<Respuestas>(TempData["Respuestas"].ToString());
+            TempData.Remove("Respuestas");
+            TempData.Remove("RedirigirDespuesDeLogin");
 
             return CalcularResultados(respuestas);
         }

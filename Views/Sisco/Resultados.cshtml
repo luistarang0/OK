@@ -43,6 +43,17 @@
     </section>
 </main>
 
+@if (TempData["AlertaTestSobrescrito"] != null)
+{
+    @section Scripts {
+    <script>
+        alert("@TempData["AlertaTestSobrescrito"]");
+        // Después de que el usuario acepte la alerta, redirigimos
+    </script>
+    }
+    
+}
+
 @functions {
     public static string GetDescripcionNivel(string nivel)
     {
