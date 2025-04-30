@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using OK.Data;
 using OK.Helpers;
 using OK.Models;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OK.Controllers
 {
@@ -74,7 +76,6 @@ namespace OK.Controllers
 
             var respuestas = JsonConvert.DeserializeObject<Respuestas>(TempData["Respuestas"].ToString());
             TempData.Remove("Respuestas");
-            TempData.Remove("RedirigirDespuesDeLogin");
 
             return CalcularResultados(respuestas);
         }
@@ -97,6 +98,12 @@ namespace OK.Controllers
             ViewBag.Porcentaje = sesion.Puntuacion;
             ViewBag.Nivel = sesion.NivelEstres?.Descripcion ?? "Desconocido";
             ViewBag.Tipo = sesion.Recomendacion?.Tipo ?? "No clasificado";
+
+            if (TempData.ContainsKey("RedirigirDespuesDeLogin"))
+            {
+                TempData["Alerta"] = "Ya haz realizado un Test recientemente!Los datos se sobreescribiran";
+                TempData.Remove("RedirigirDespuesDeLogin");
+            }
 
             return View();
         }

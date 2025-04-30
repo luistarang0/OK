@@ -43,14 +43,12 @@
     </section>
 </main>
 
-@if (TempData["AlertaTestSobrescrito"] != null)
+@if (TempData["Alerta"] != null)
 {
-    @section Scripts {
-    <script>
-        alert("@TempData["AlertaTestSobrescrito"]");
-        // Después de que el usuario acepte la alerta, redirigimos
+
+        <script type="text/javascript">
+        alert('@TempData["Alerta"]');
     </script>
-    }
     
 }
 
