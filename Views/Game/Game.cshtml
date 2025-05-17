@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Juego de Respiración";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="@Url.Content("~/css/estilosGame.css")" />
+}
+
+
+<div class="container">
+    <!-- Escena Submarina -->
+    <div class="underwater-scene">
+        <!-- Efecto de rayos de luz -->
+        <div class="light-rays"></div>
+        <button class="top-left-button" id="confirmExitBtn">Regresar</button>
+        <!-- Peces -->
+        <div class="fish-container">
+            <div class="fish fish-1"></div>
+            <div class="fish fish-2"></div>
+
+            <!-- Grupo de peces pequeños -->
+            <div class="fish-group">
+                <div class="small-fish"></div>
+                <div class="small-fish"></div>
+                <div class="small-fish"></div>
+                <div class="small-fish"></div>
+                <div class="small-fish"></div>
+            </div>
+
+            <!-- Medusa -->
+            <div class="jellyfish">
+                <div class="jellyfish-body"></div>
+                <div class="jellyfish-tentacles">
+                    <div class="tentacle"></div>
+                    <div class="tentacle"></div>
+                    <div class="tentacle"></div>
+                    <div class="tentacle"></div>
+                    <div class="tentacle"></div>
+                    <div class="tentacle"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fondo marino -->
+
+    </div>
+
+    <!-- Tarjetas laterales tipo burbuja mejoradas -->
+    <div class="sidebar">
+        <div class="card">
+            <h3>Técnicas de Respiracion</h3>
+            <ul>
+                <li>- Respirar con el diafragma</li>
+                <li>- Respiración 5x5 (5 segundos exhalación y 5 inhalación)</li>
+                <li>- Pulsa espacio o click izquierdo para controlar el flujo</li>
+                <li>- Inhala al pulsar y exhala al soltar</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Consejos</h3>
+            <ul>
+                <li>- Encuentra un lugar tranquilo sin distracciones</li>
+                <li>- Mantén una postura cómoda pero erguida</li>
+                <li>- Concéntrate en la sensación del aire</li>
+                <li>- Practica diariamente para mejores resultados</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Decoración izquierda mejorada CON CONTENIDO -->
+    <div class="left-decor">
+        <div class="floating-element">
+            <h4>Beneficios</h4>
+            <p>Reduce el estrés y mejora la concentración con solo 5 minutos al día</p>
+        </div>
+        <div class="floating-element">
+            <h4>Nivel</h4>
+            <p>Principiante: Sigue el ritmo de las burbujas para sincronizar tu respiración</p>
+        </div>
+        <div class="floating-element">
+            <h4>Estadísticas</h4>
+            <p>Tu récord: 3 minutos<br>Media diaria: 2 ciclos</p>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        confirmExitBtn.addEventListener('click', function() {
+                // Redirigir a la página principal
+                window.location.href = '@Url.Action("Index", "Home")';
+            });
+    </script>
+}
+@* 
+@section Scripts {
+    <!-- Phaser Library -->
+    <script src="~/lib/phaser/phaser.min.js"></script>
+
+    <!-- Game Script -->
+    <script src="~/js/init.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // El juego se inicializa automáticamente en game.js
+            console.log('Juego cargado correctamente');
+        });
+    </script>
+} *@

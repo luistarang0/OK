@@ -12,7 +12,8 @@
     <div class="hero-container">
         <div class="hero-content">
             <h1><span class="gradient-text">Juega con propósito</span> Fundación OK</h1>
-            <p>Toris es un gran programador</p>
+            <p>OK es tu espacio seguro para entender y manejar el estrés académico.<br /> Aqui encontrarás apoyo
+                psicológico, herramientas prácticas y un lugar donde tu bienestar es prioridad</p>
             <p>Juega con propósito</p>
             <div class="button-contenedor">
                 @if (ViewData["PuedeRealizarTest"] as bool? == true)
@@ -22,7 +23,9 @@
                     </a>
                 }
 
-                <button class="create-btn">Jugar</button>
+                <a asp-controller="Game" asp-action="Game" class="create-btn">
+                    Jugar
+                </a>
             </div>
         </div>
         <div class="hero-images">
