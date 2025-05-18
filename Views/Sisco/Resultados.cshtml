@@ -43,14 +43,6 @@
     </section>
 </main>
 
-@if (TempData["Alerta"] != null)
-{
-
-        <script type="text/javascript">
-        alert('@TempData["Alerta"]');
-    </script>
-    
-}
 
 @functions {
     public static string GetDescripcionNivel(string nivel)

@@ -119,13 +119,13 @@ namespace OK.Controllers
             HttpContext.Session.SetString("UserId", nuevoUsuario.Id.ToString());
 
             // Redirección si venía del test
-            if (TempData.ContainsKey("RedirigirDespuesDeLogin"))
-            {                
-                string action = TempData["RedirigirDespuesDeLogin"].ToString();
-                return RedirectToAction(action, "Sisco");
-            }
+            //if (TempData.ContainsKey("RedirigirDespuesDeLogin"))
+            //{                
+            //    string action = TempData["RedirigirDespuesDeLogin"].ToString();
+            //    return RedirectToAction(action, "Sisco");
+            //}
 
-            return RedirectToAction("Perfil", "Usuarios");
+            return RedirectToAction("Index", "Home");
 
         }
 

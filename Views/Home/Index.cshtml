@@ -18,9 +18,13 @@
             <div class="button-contenedor">
                 @if (ViewData["PuedeRealizarTest"] as bool? == true)
                 {
-                    <a asp-controller="Sisco" asp-action="Comienzo" class="explore-btn">
-                        Test<span class="circle"></span>
-                    </a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Sisco" asp-action="Comienzo" class="explore-btn">
+                            Test<span class="circle"></span>
+                        </a>
+                    }
+                    
                 }
 
                 <a asp-controller="Game" asp-action="Game" class="create-btn">

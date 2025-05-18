@@ -676,6 +676,76 @@ footer {
     color: #000; /* Texto negro al pasar el cursor */
 }
 
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.disabled-btn {
+    opacity: 0.65;
+    cursor: not-allowed;
+    pointer-events: all !important; /* Permite eventos de mouse para que funcione el tooltip */
+    background-color: #e6e6e6; /* Gris claro para mayor distinción visual */
+    transition: none; /* Evita efectos de transición en botón deshabilitado */
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 220px;
+    background-color: #000; /* Negro para mantener coherencia con diseño */
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px 10px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -110px;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 14px;
+    font-weight: normal;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* Borde gradiente para mantener coherencia de diseño */
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+    .tooltip::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: #000 transparent transparent transparent; /* Flecha del mismo color que el fondo */
+    }
+
+    /* Efecto de degradado al borde del tooltip */
+    .tooltip::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #A8E6CF, #FFD3B6, #FFAAA5);
+        border-radius: 10px;
+        z-index: -1;
+    }
+
+.tooltip-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Estilo especial para botón deshabilitado al hover */
+.tooltip-container:hover .disabled-btn {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .emoji-options {

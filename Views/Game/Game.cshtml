@@ -8,11 +8,12 @@
 
 
 <div class="container">
+    <button class="top-left-button" id="confirmExitBtn">Regresar</button>
     <!-- Escena Submarina -->
     <div class="underwater-scene">
         <!-- Efecto de rayos de luz -->
         <div class="light-rays"></div>
-        <button class="top-left-button" id="confirmExitBtn">Regresar</button>
+       
         <!-- Peces -->
         <div class="fish-container">
             <div class="fish fish-1"></div>
@@ -45,6 +46,29 @@
 
     </div>
 
+   
+
+    <!-- Decoración izquierda mejorada CON CONTENIDO -->
+    <div class="left-decor">
+        <div class="floating-element">
+            <h4>Beneficios</h4>
+            <p>Reduce el estrés y mejora la concentración con solo 5 minutos al día</p>
+        </div>
+        <div class="floating-element">
+            <h4>Nivel</h4>
+            <p>Principiante: Sigue el ritmo de las burbujas para sincronizar tu respiración</p>
+        </div>
+        <div class="floating-element">
+            <h4>Estadísticas</h4>
+            <p>Tu récord: 3 minutos<br>Media diaria: 2 ciclos</p>
+        </div>
+    </div>
+
+    <!-- Contenedor central para el juego -->
+    <div class="game-container">
+        <div id="game-canvas"></div>        
+    </div>
+
     <!-- Tarjetas laterales tipo burbuja mejoradas -->
     <div class="sidebar">
         <div class="card">
@@ -67,43 +91,92 @@
             </ul>
         </div>
     </div>
-
-    <!-- Decoración izquierda mejorada CON CONTENIDO -->
-    <div class="left-decor">
-        <div class="floating-element">
-            <h4>Beneficios</h4>
-            <p>Reduce el estrés y mejora la concentración con solo 5 minutos al día</p>
-        </div>
-        <div class="floating-element">
-            <h4>Nivel</h4>
-            <p>Principiante: Sigue el ritmo de las burbujas para sincronizar tu respiración</p>
-        </div>
-        <div class="floating-element">
-            <h4>Estadísticas</h4>
-            <p>Tu récord: 3 minutos<br>Media diaria: 2 ciclos</p>
-        </div>
-    </div>
 </div>
 @section Scripts {
-    <script>
-        confirmExitBtn.addEventListener('click', function() {
-                // Redirigir a la página principal
-                window.location.href = '@Url.Action("Index", "Home")';
-            });
-    </script>
-}
-@* 
-@section Scripts {
-    <!-- Phaser Library -->
-    <script src="~/lib/phaser/phaser.min.js"></script>
+    <!-- Phaser Library - Asegúrese de usar la versión 3.55.2 que es estable -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
 
-    <!-- Game Script -->
-    <script src="~/js/init.js"></script>
-
+    <!-- Mensaje de diagnóstico para verificar la carga de Phaser -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // El juego se inicializa automáticamente en game.js
-            console.log('Juego cargado correctamente');
+        window.addEventListener('load', function() {
+            if (typeof Phaser === 'undefined') {
+                console.error('ERROR: La biblioteca Phaser no se ha cargado correctamente.');
+            } else {
+                console.log('Phaser cargado correctamente. Versión:', Phaser.VERSION);
+            }
         });
     </script>
-} *@
+
+    <!-- Game Script -->
+    <script src="~/js/game.js"></script>
+    <script>
+        // Inicialización del juego cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM cargado. Configurando juego...');
+
+            // Crear burbujas aleatorias
+            createRandomBubbles();
+
+            // Asegurarse de que el contenedor existe
+            const gameContainer = document.getElementById('game-canvas');
+            if (!gameContainer) {
+                console.error('ERROR: No se encontró el contenedor #game-canvas');
+                return;
+            }
+
+            // Establecer dimensiones explícitas del contenedor
+            gameContainer.style.width = '100%';
+            gameContainer.style.height = '500px'; // Altura explícita
+            gameContainer.style.display = 'block';
+            gameContainer.style.position = 'relative';
+
+            console.log('Tamaño del contenedor:', gameContainer.offsetWidth, 'x', gameContainer.offsetHeight);
+
+            // Inicializar el juego con un retraso para asegurar que todo está listo
+            setTimeout(function() {
+                try {
+                    const buzoGame = initBuzoGame('game-canvas');
+                    if (buzoGame) {
+                        console.log('Juego cargado correctamente');
+
+                        // Almacenar referencia global (opcional)
+                        window.buzoGame = buzoGame;
+                    } else {
+                        console.error('No se pudo inicializar el juego.');
+                    }
+                } catch (error) {
+                    console.error('Error al cargar el juego:', error);
+                }
+            }, 200);
+
+            // Gestionar el botón de regreso
+            const exitButton = document.getElementById('confirmExitBtn');
+            if (exitButton) {
+                exitButton.addEventListener('click', function() {
+                    window.location.href = '@Url.Action("Index", "Home")';
+                });
+            }
+        });
+
+        // Función para crear burbujas aleatorias
+        function createRandomBubbles() {
+            const container = document.getElementById('randomBubbles');
+            if (!container) return;
+
+            const numBubbles = 20;
+            for (let i = 0; i < numBubbles; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'random-bubble';
+                // Posición aleatoria
+                const left = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const size = 5 + Math.random() * 10;
+                bubble.style.left = `${left}%`;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.animationDelay = `${delay}s`;
+                container.appendChild(bubble);
+            }
+        }
+    </script>
+}

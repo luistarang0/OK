@@ -1,8 +1,8 @@
 // Configuración básica de Phaser
 const config = {
-    width: 720,
-    height: 540,
-    parent: "phaser-container",
+    width: 1280,
+    height: 960,
+    parent: "container",
     type: Phaser.AUTO,
     scene: {
         preload: preload,
@@ -21,12 +21,12 @@ let spaceKey;
 let buzo;
 let burbuja;
 let isInhaling = false;
-let basePosition = 84; // Posición base del buzo
-let bubbleOffset = 168;   // Desplazamiento por respiración
+let basePosition = 150; // Posición base del buzo
+let bubbleOffset = 300;   // Desplazamiento por respiración
 
 // Variables para los obstáculos
 let obstacles = [];
-let obstacleSpeed = 112; // Velocidad en píxeles por segundo
+let obstacleSpeed = 200; // Velocidad en píxeles por segundo
 let nextIsCoral = true;  // Alternamos coral y tiburón
 
 // Variables para el ciclo de respiración
@@ -55,8 +55,9 @@ function preload() {
     this.load.image("burbuja", "assets/images/burbuja.png");
     this.load.image("coral", "assets/images/coral.png");
     this.load.image("tiburon", "assets/images/tibu.png");
-    this.load.image("flecha_arriba", "assets/images/arrow_up.png");
+    this.load.image("flecha_arriba", "assets/images/arrow_up.png"); // Asumiendo que tienes estos assets
     this.load.image("flecha_abajo", "assets/images/arrow_down.png");
+    this.load.image('reset-button', 'assets/images/reset.png');
     
     // Cargar música
     this.load.audio("musica", "assets/sounds/st.mp3");
@@ -84,12 +85,12 @@ function create() {
     // Crear burbuja (inicialmente invisible)
     burbuja = this.add.image(config.width/2, config.height - basePosition, "burbuja")
         .setAlpha(0.5)
-        .setScale(0.45)
+        .setScale(0.8)
         .setVisible(false);
     
     // Crear buzo (inicialmente invisible)
     buzo = this.add.image(config.width/2, config.height - (basePosition - 10), "buzo")
-        .setScale(0.33)
+        .setScale(0.6)
         .setVisible(false);
     
     // Crear la barra de progreso de respiración (inicialmente invisible)
@@ -124,17 +125,10 @@ function create() {
     });
     
     // Botón de reinicio (inicialmente invisible)
-    const resetButton = this.add.text(config.width - 80, 40, "Reiniciar", {
-        fontSize: '16px',
-        fontWeight: 'bold',
-        fill: '#ffffff',
-        backgroundColor: '#0066ff',
-        padding: {
-            x: 10,
-            y: 5
-        },
-        borderRadius: 10
-    }).setOrigin(0.5).setScale(0.7).setInteractive({ useHandCursor: true }).setVisible(false);
+    const resetButton = this.add.image(config.width - 80, 40, 'reset-button')
+    .setOrigin(0.5)
+    .setInteractive({ useHandCursor: true })
+    .setVisible(false);
     
     // Evento para el botón de reinicio
     resetButton.on('pointerdown', () => {
@@ -255,13 +249,13 @@ function handlePointerDown() {
     if (!hasStarted || countdownText.visible) return;
     
     isInhaling = true;
-    bubbleOffset = 168; // El buzo sube cuando inhala
+    bubbleOffset = 300; // El buzo sube cuando inhala
     
     // Animar el movimiento hacia arriba
     if (burbuja && burbuja.scene) {
         burbuja.scene.tweens.add({
             targets: [burbuja, buzo],
-            y: "-=250",
+            y: "-=450",
             duration: 5000,
             ease: 'Sine.easeOut'
         });
@@ -278,7 +272,7 @@ function handlePointerUp() {
     if (burbuja && burbuja.scene) {
         burbuja.scene.tweens.add({
             targets: [burbuja, buzo],
-            y: "+=250", 
+            y: "+=450", 
             duration: 5000,
             ease: 'Sine.easeIn'
         });
@@ -455,16 +449,16 @@ function spawnObstacle() {
             // Coral (parte inferior)
             nuevoObstaculo.sprite = scene.add.image(
                 nuevoObstaculo.x,
-                config.height - 147, // Ajustar según necesidad
+                config.height - 260, // Ajustar según necesidad
                 "coral"
-            ).setOrigin(0, 0).setScale(0.57);
+            ).setOrigin(0, 0);
         } else {
             // Tiburón (parte superior)
             nuevoObstaculo.sprite = scene.add.image(
                 nuevoObstaculo.x,
-                90, // Ajustar según necesidad
+                50, // Ajustar según necesidad
                 "tiburon"
-            ).setOrigin(0, 0).setScale(0.57);
+            ).setOrigin(0, 0);
         }
     }
     
