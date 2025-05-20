@@ -24,7 +24,7 @@
                             Test<span class="circle"></span>
                         </a>
                     }
-                    
+
                 }
 
                 <a asp-controller="Game" asp-action="Game" class="create-btn">
@@ -56,9 +56,13 @@
     <div class="cards">
         @if (ViewData["PuedeRealizarTest"] as bool? == true)
         {
-            <a asp-controller="Sisco" asp-action="Comienzo" class="card orange-card">
-                <div><h3>Test SISCO</h3></div>
-            </a>
+            if (User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Sisco" asp-action="Comienzo" class="card orange-card">
+                    <div><h3>Test SISCO</h3></div>
+                </a>
+            }
+           
         }
         <div class="card blue-card">
             <h3>Respiración</h3>

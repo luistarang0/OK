@@ -17,7 +17,9 @@
             <a href="#">Acerca</a>
             @if (ViewData["PuedeRealizarTest"] as bool? == true)
             {
-                <a asp-controller="Sisco" asp-action="Comienzo">Test</a>
+                if (User.Identity.IsAuthenticated){
+                    <a asp-controller="Sisco" asp-action="Comienzo">Test</a>
+                }                
             }            
             <a asp-controller="Game" asp-action="Game">Minijuegos</a>
             <a href="#">Explorar</a>
